@@ -29,7 +29,7 @@ const dataProvider = {
             const formData = new FormData();
             for (const key in params.data) {
                 if (key == 'file') formData.append(key, params.data[key].url);
-                else if (key == 'newfile') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+                else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
                 else formData.append(key, params.data[key]);
             }
             return fetch(`${apiUrl}/${resource}/${params.id}`,

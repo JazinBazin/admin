@@ -58,7 +58,7 @@ export const ArticleEdit = props => (
             <TextInput type="headline" fullWidth label="Название" source="headline" validate={validateHeadline} />
             <TextInput type="text" fullWidth label="Аннотация" multiline source="text" validate={validateAnnotation} />
             <FileField source="file.url" title="file.title" label="PDF файл" target="_blank" />
-            <FileInput source="newfile" label="Новый файл" accept="application/pdf" >
+            <FileInput source="newfile" label="Новый файл" accept="application/pdf">
                 <FileField source="src" title="Загруженный файл" />
             </FileInput>
         </SimpleForm>
