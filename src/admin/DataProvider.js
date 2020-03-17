@@ -6,10 +6,15 @@ const restProvider = simpleRestProvider(apiUrl);
 const dataProvider = {
     ...restProvider,
     create: (resource, params) => {
-        if (resource == 'articles') {
+        if (resource == 'articles' || resource == 'programms') {
             const formData = new FormData();
             for (const key in params.data) {
-                if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+                if (key == 'creationDate') {
+                    let date = new Date(params.data[key]);
+                    date.setHours(0, 0, 0, 0);
+                    formData.append(key, date.toDateString());
+                }
+                else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
                 else formData.append(key, params.data[key]);
             }
             return fetch(`${apiUrl}/${resource}`,
@@ -25,10 +30,15 @@ const dataProvider = {
         return restProvider.create(resource, params);
     },
     update: (resource, params) => {
-        if (resource == 'articles') {
+        if (resource == 'articles' || resource == 'programms') {
             const formData = new FormData();
             for (const key in params.data) {
-                if (key == 'file') formData.append(key, params.data[key].url);
+                if (key == 'creationDate') {
+                    let date = new Date(params.data[key]);
+                    date.setHours(0, 0, 0, 0);
+                    formData.append(key, date.toDateString());
+                }
+                else if (key == 'file') formData.append(key, params.data[key].url);
                 else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
                 else formData.append(key, params.data[key]);
             }
