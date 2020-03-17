@@ -55,8 +55,8 @@ const ProgrammFilter = (props) => (
 
 const ProgrammShowActions = ({ basePath, data, resource }) => (
     <TopToolbar>
-        <EditButton basePath={basePath} record={data} />
         <ListButton basePath={basePath} record={data} />
+        <EditButton basePath={basePath} record={data} />
         <RefreshButton basePath={basePath} record={data} />
     </TopToolbar>
 );
