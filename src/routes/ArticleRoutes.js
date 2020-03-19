@@ -19,6 +19,10 @@ const articleSchema = new Schema(
             required: true,
             maxlength: 5000
         },
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: 'Author'
+        },
         creationDate: {
             type: Date,
             required: true
@@ -69,7 +73,7 @@ module.exports = function (app) {
         });
         article.save()
             .then(() => {
-                articleToSend = {
+                const articleToSend = {
                     id: article.id,
                     headline: article.headline,
                     text: article.text,
@@ -108,7 +112,7 @@ module.exports = function (app) {
             article,
             { new: true })
             .then(newArticle => {
-                articleToSend = {
+                const articleToSend = {
                     id: newArticle._id,
                     headline: newArticle.headline,
                     text: newArticle.text,
@@ -132,7 +136,7 @@ module.exports = function (app) {
                 fs.unlink(articleFilePath, error => {
                     if (error) console.log(error);
                 });
-                articleToSend = {
+                const articleToSend = {
                     id: article._id,
                     headline: article.headline,
                     text: article.text,

@@ -70,7 +70,7 @@ module.exports = function (app) {
         });
         programm.save()
             .then(() => {
-                programmToSend = {
+                const programmToSend = {
                     id: programm.id,
                     headline: programm.headline,
                     description: programm.description,
@@ -109,7 +109,7 @@ module.exports = function (app) {
             programm,
             { new: true })
             .then(newProgramm => {
-                programmToSend = {
+                const programmToSend = {
                     id: newProgramm._id,
                     headline: newProgramm.headline,
                     description: newProgramm.description,
@@ -133,7 +133,7 @@ module.exports = function (app) {
                 fs.unlink(programmFilePath, error => {
                     if (error) console.log(error);
                 });
-                programmToSend = {
+                const programmToSend = {
                     id: programm._id,
                     headline: programm.headline,
                     description: programm.description,

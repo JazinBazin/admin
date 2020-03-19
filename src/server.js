@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 require('./routes/ArticleRoutes')(app);
 require('./routes/ProgrammRoutes')(app);
+require('./routes/AuthorRoutes')(app);
 
 app.use(function (req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");

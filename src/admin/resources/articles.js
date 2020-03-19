@@ -4,11 +4,11 @@ import {
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, FileInput, FileField,
-    DateField,
+    DateField, ReferenceInput, SelectInput,
     required, minLength, maxLength,
     TopToolbar, EditButton, ListButton,
     RefreshButton, CreateButton,
-    ShowButton
+    ShowButton, CloneButton
 } from 'react-admin';
 
 import { Box, Typography } from "@material-ui/core";
@@ -61,14 +61,19 @@ const ArticleShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
-const ArticleEditActions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} record={data} />
-        <CreateButton basePath={basePath} record={data} />
-        <ShowButton basePath={basePath} record={data} />
-        <RefreshButton basePath={basePath} record={data} />
-    </TopToolbar>
-);
+const ArticleEditActions = ({ basePath, data, resource }) => {
+    const dataWithoutFile = { ...data };
+    delete dataWithoutFile.file;
+    return (
+        <TopToolbar>
+            <ListButton basePath={basePath} record={data} />
+            <CreateButton basePath={basePath} record={data} />
+            <CloneButton basePath={basePath} record={dataWithoutFile} />
+            <ShowButton basePath={basePath} record={data} />
+            <RefreshButton basePath={basePath} record={data} />
+        </TopToolbar>
+    );
+}
 
 export const ArticleList = props => (
     <List
@@ -119,6 +124,9 @@ export const ArticleCreate = props => (
                 source="text"
                 validate={validateAnnotation}
                 options={{ multiLine: true }} />
+            <ReferenceInput label="Автор" source="author" reference="authors">
+                <SelectInput />
+            </ReferenceInput>
             <DateInput
                 label="Дата создания"
                 source="creationDate"
