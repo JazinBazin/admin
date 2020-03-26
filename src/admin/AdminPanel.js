@@ -5,11 +5,9 @@ import russianMessages from 'ra-language-russian';
 import { Admin, Resource } from 'react-admin';
 import { ArticleList, ArticleEdit, ArticleCreate, ArticleShow } from './resources/articles';
 import { ProgrammList, ProgrammEdit, ProgrammCreate, ProgrammShow } from './resources/programms';
-import { AuthorList, AuthorEdit, AuthorCreate, AuthorShow } from './resources/authors';
 import DashBoard from './DashBoard';
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-import GroupIcon from '@material-ui/icons/Group';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -51,14 +49,6 @@ const AdminPanel = () => (
                 edit={ProgrammEdit}
                 create={ProgrammCreate}
                 show={ProgrammShow} />
-            <Resource
-                name="authors"
-                icon={GroupIcon}
-                options={{ label: 'Авторы' }}
-                list={AuthorList}
-                edit={AuthorEdit}
-                create={AuthorCreate}
-                show={AuthorShow} />
         </Admin>
     </MuiPickersUtilsProvider>
 );

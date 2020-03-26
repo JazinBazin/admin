@@ -52,7 +52,14 @@ const dataProvider = {
                 }));
         }
         return restProvider.update(resource, params);
-    }
+    },
+    getMany: (resource, params) => {
+        const id = params.ids[0];
+        return fetch(`${apiUrl}/${resource}/${id}`)
+            .then(({ json }) => ({
+                data: [json]
+            }));
+    },
 };
 
 export default dataProvider;

@@ -4,7 +4,7 @@ import {
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, FileInput, FileField,
-    DateField, ReferenceInput, SelectInput,
+    DateField,
     required, minLength, maxLength,
     TopToolbar, EditButton, ListButton,
     RefreshButton, CreateButton,
@@ -103,6 +103,9 @@ export const ArticleList = props => (
     </List>
 );
 
+const optionRenderer = choice => `${choice.lastName} ${choice.firstName} ${choice.middleName}`;
+const inputText = choice => `${choice.lastName} ${choice.firstName} ${choice.middleName}`;
+
 export const ArticleCreate = props => (
     <Create
         title="Добавить статью"
@@ -124,9 +127,6 @@ export const ArticleCreate = props => (
                 source="text"
                 validate={validateAnnotation}
                 options={{ multiLine: true }} />
-            <ReferenceInput label="Автор" source="author" reference="authors">
-                <SelectInput />
-            </ReferenceInput>
             <DateInput
                 label="Дата создания"
                 source="creationDate"

@@ -5,7 +5,6 @@ const express = require("express");
 const app = express();
 require('./routes/ArticleRoutes')(app);
 require('./routes/ProgrammRoutes')(app);
-require('./routes/AuthorRoutes')(app);
 
 app.use(function (req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -17,6 +16,8 @@ app.use(function (req, res, next) {
 app.use('/dist', express.static(path.join(appRoot.path, "/dist/")));
 
 app.use('/media', express.static(path.join(appRoot.path, "/media/")));
+
+app.use('/static', express.static(path.join(appRoot.path, "/static/")));
 
 app.get("/*", (req, res) => {
     res.sendFile((path.join(appRoot.path, "/public/index.html")));

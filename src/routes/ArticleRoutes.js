@@ -19,10 +19,6 @@ const articleSchema = new Schema(
             required: true,
             maxlength: 5000
         },
-        author: {
-            type: Schema.Types.ObjectId,
-            ref: 'Author'
-        },
         creationDate: {
             type: Date,
             required: true
