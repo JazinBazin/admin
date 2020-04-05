@@ -11,7 +11,7 @@ const listParamsMiddleware = require("./utils").listParamsMiddleware;
 
 Авторы +++
 Поиск по автору
-Место публикации
+Место публикации +-
 Поиск по месту публикации
 Рейтинг места публикации
 Сортировка по месту публикации
@@ -39,6 +39,10 @@ const articleSchema = new Schema(
             type: Date,
             required: true
         },
+        // publicationPlace: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'PublicationPlace'
+        // },
         authors: [{ author: String }],
         file: {
             type: String,
