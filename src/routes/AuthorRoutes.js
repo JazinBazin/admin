@@ -55,7 +55,7 @@ module.exports = function (app) {
 
     // update
     app.put("/api/authors/:id", jsonParser, (req, res) => {
-        const { lastName, firstName, middleName, ran } = req.body;
+        const { lastName, firstName, middleName } = req.body;
         const author = {
             lastName,
             firstName,

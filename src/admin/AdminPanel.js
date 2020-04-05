@@ -5,6 +5,7 @@ import russianMessages from 'ra-language-russian';
 import { Admin, Resource } from 'react-admin';
 import { ArticleList, ArticleEdit, ArticleCreate, ArticleShow } from './resources/articles';
 import { ProgrammList, ProgrammEdit, ProgrammCreate, ProgrammShow } from './resources/programms';
+import { PublicationPlaceList, PublicationPlaceEdit, PublicationPlaceCreate, PublicationPlaceShow } from './resources/PublicationPlace';
 import DashBoard from './DashBoard';
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
@@ -49,6 +50,14 @@ const AdminPanel = () => (
                 edit={ProgrammEdit}
                 create={ProgrammCreate}
                 show={ProgrammShow} />
+            <Resource
+                name="publication"
+                icon={CodeIcon}
+                options={{ label: 'Места публикации' }}
+                list={PublicationPlaceList}
+                edit={PublicationPlaceEdit}
+                create={PublicationPlaceCreate}
+                show={PublicationPlaceShow} />
         </Admin>
     </MuiPickersUtilsProvider>
 );
