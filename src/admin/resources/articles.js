@@ -8,7 +8,10 @@ import {
     required, minLength, maxLength,
     TopToolbar, EditButton, ListButton,
     RefreshButton, CreateButton,
-    ShowButton, CloneButton
+    ShowButton, CloneButton,
+    ArrayInput, SimpleFormIterator,
+    ArrayField, SingleFieldList,
+    ChipField,
 } from 'react-admin';
 
 import { Box, Typography } from "@material-ui/core";
@@ -94,6 +97,15 @@ export const ArticleList = props => (
                 label="Аннотация"
                 source="text"
                 maxchars={250} />
+            <ArrayField
+                source="authors"
+                label="Авторы">
+                <SingleFieldList linkType="">
+                    <ChipField
+                        label="Автор"
+                        source="author" />
+                </SingleFieldList>
+            </ArrayField>
             <DateField
                 label="Дата создания"
                 source="creationDate"
@@ -132,6 +144,16 @@ export const ArticleCreate = props => (
                 source="creationDate"
                 validate={validateCreationDate}
                 options={{ format: dateFormat, cancelLabel: cancelLabel }} />
+            <ArrayInput
+                validate={required()}
+                source="authors"
+                label="Авторы">
+                <SimpleFormIterator>
+                    <TextInput
+                        label="Автор"
+                        source="author" />
+                </SimpleFormIterator>
+            </ArrayInput>
             <FileInput
                 source="file"
                 label="PDF файл"
@@ -170,6 +192,16 @@ export const ArticleEdit = props => (
                 source="creationDate"
                 validate={validateCreationDate}
                 options={{ format: dateFormat, cancelLabel: cancelLabel }} />
+            <ArrayInput
+                validate={required()}
+                label="Авторы"
+                source="authors">
+                <SimpleFormIterator>
+                    <TextInput
+                        label="Автор"
+                        source="author" />
+                </SimpleFormIterator>
+            </ArrayInput>
             <FileField
                 source="file.url"
                 title="file.title"
@@ -205,6 +237,15 @@ export const ArticleShow = ({ enableActions, ...props }) => {
                     label="Дата создания"
                     source="creationDate"
                     locales="ru-RU" />
+                <ArrayField
+                    label="Авторы"
+                    source="authors">
+                    <SingleFieldList linkType="">
+                        <ChipField
+                            label="Автор"
+                            source="author" />
+                    </SingleFieldList>
+                </ArrayField>
                 <FileField
                     source="file.url"
                     title="file.title"

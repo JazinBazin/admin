@@ -204,7 +204,7 @@ export const ProgrammShow = ({ enableActions, ...props }) => {
                 <FileField
                     source="file.url"
                     title="file.title"
-                    label="PDF файл"
+                    label="Архив с программой"
                     target="_blank" />
             </SimpleShowLayout>
         </Show>

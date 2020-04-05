@@ -7,6 +7,18 @@ const multer = require("multer");
 const shortid = require('shortid');
 const listParamsMiddleware = require("./utils").listParamsMiddleware;
 
+/*
+
+Авторы +++
+Поиск по автору
+Место публикации
+Поиск по месту публикации
+Рейтинг места публикации
+Сортировка по месту публикации
+Отделы
+Ниры
+*/
+
 const articleSchema = new Schema(
     {
         headline: {
@@ -27,6 +39,7 @@ const articleSchema = new Schema(
             type: Date,
             required: true
         },
+        authors: [{ author: String }],
         file: {
             type: String,
             required: true
@@ -50,7 +63,9 @@ const articleFilesStorage = multer.diskStorage({
 const articlesFormData = multer({
     storage: articleFilesStorage,
     fileFilter: (req, file, cb) => {
-        if (file.mimetype == "application/pdf") cb(null, true);
+        if (file.mimetype == "application/pdf") {
+            cb(null, true);
+        }
         else cb(null, false);
     }
 });
@@ -58,13 +73,14 @@ const articlesFormData = multer({
 module.exports = function (app) {
     // create
     app.post("/api/articles", articlesFormData.single("file"), (req, res) => {
-        const { headline, text, creationDate } = req.body;
+        const { headline, text, creationDate, authors } = req.body;
         const filePath = path.join(articleFilesFolder, req.file.filename);
         const article = new Article({
             headline,
             text,
             creationDate: new Date(creationDate),
             firstCreationDate: new Date(),
+            authors: JSON.parse(authors),
             file: filePath
         });
         article.save()
@@ -75,6 +91,7 @@ module.exports = function (app) {
                     text: article.text,
                     creationDate: article.creationDate,
                     firstCreationDate: article.firstCreationDate,
+                    authors: article.authors,
                     file: {
                         url: article.file,
                         title: "Статья: " + article.headline
@@ -87,11 +104,12 @@ module.exports = function (app) {
 
     // update
     app.put("/api/articles/:id", articlesFormData.single("newfile"), (req, res) => {
-        const { headline, text, creationDate } = req.body;
+        const { headline, text, creationDate, authors } = req.body;
         const article = {
             headline,
             text,
             creationDate: new Date(creationDate),
+            authors: JSON.parse(authors),
         };
         if (req.file) {
             article.file = path.join(articleFilesFolder, req.file.filename);
@@ -114,6 +132,7 @@ module.exports = function (app) {
                     text: newArticle.text,
                     creationDate: article.creationDate,
                     firstCreationDate: article.firstCreationDate,
+                    authors: article.authors,
                     file: {
                         url: newArticle.file,
                         title: "Статья: " + newArticle.headline
@@ -138,6 +157,7 @@ module.exports = function (app) {
                     text: article.text,
                     creationDate: article.creationDate,
                     firstCreationDate: article.firstCreationDate,
+                    authors: article.authors,
                     file: {
                         url: article.file,
                         title: "Статья: " + article.headline
@@ -168,6 +188,7 @@ module.exports = function (app) {
                             text: article.text,
                             creationDate: article.creationDate,
                             firstCreationDate: article.firstCreationDate,
+                            authors: article.authors,
                             file: {
                                 url: article.file,
                                 title: "Статья: " + article.headline
@@ -192,6 +213,7 @@ module.exports = function (app) {
                     text: article.text,
                     creationDate: article.creationDate,
                     firstCreationDate: article.firstCreationDate,
+                    authors: article.authors,
                     file: {
                         url: article.file,
                         title: "Статья: " + article.headline

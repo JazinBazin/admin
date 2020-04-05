@@ -15,6 +15,7 @@ const dataProvider = {
                     formData.append(key, date.toDateString());
                 }
                 else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+                else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
                 else formData.append(key, params.data[key]);
             }
             return fetch(`${apiUrl}/${resource}`,
@@ -40,6 +41,7 @@ const dataProvider = {
                 }
                 else if (key == 'file') formData.append(key, params.data[key].url);
                 else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+                else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
                 else formData.append(key, params.data[key]);
             }
             return fetch(`${apiUrl}/${resource}/${params.id}`,
@@ -53,13 +55,13 @@ const dataProvider = {
         }
         return restProvider.update(resource, params);
     },
-    getMany: (resource, params) => {
-        const id = params.ids[0];
-        return fetch(`${apiUrl}/${resource}/${id}`)
-            .then(({ json }) => ({
-                data: [json]
-            }));
-    },
+    // getMany: (resource, params) => {
+    //     const id = params.ids[0];
+    //     return fetch(`${apiUrl}/${resource}/${id}`)
+    //         .then(({ json }) => ({
+    //             data: [json]
+    //         }));
+    // },
 };
 
 export default dataProvider;
