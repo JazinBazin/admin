@@ -4,7 +4,7 @@ import {
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, FileInput, FileField,
-    DateField,
+    DateField, minValue,
     required, minLength, maxLength,
     TopToolbar, EditButton, ListButton,
     RefreshButton, CreateButton,
@@ -12,7 +12,7 @@ import {
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
     ChipField, ReferenceInput, SelectInput,
-    ReferenceField
+    ReferenceField, NumberInput
 } from 'react-admin';
 
 import { Box, Typography } from "@material-ui/core";
@@ -102,8 +102,7 @@ export const ArticleList = props => (
                 label="Место публикации"
                 source="publicationPlace"
                 reference="publication"
-                linkType=""
-                >
+                linkType="">
                 <TextField source="name" />
             </ReferenceField>
             <ArrayField
@@ -166,6 +165,10 @@ export const ArticleCreate = props => (
                 reference="publication">
                 <SelectInput optionText="name" />
             </ReferenceInput>
+            <NumberInput
+                label="Рота"
+                source="rota"
+                validate={minValue(1)} />
             <FileInput
                 source="file"
                 label="PDF файл"

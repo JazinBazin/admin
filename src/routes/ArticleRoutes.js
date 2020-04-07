@@ -43,6 +43,11 @@ const articleSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'PublicationPlace'
         },
+        rota: {
+            type: Number,
+            required: false,
+            min: 1
+        },
         authors: [{ author: String }],
         file: {
             type: String,
