@@ -11,7 +11,8 @@ import {
     ShowButton, CloneButton,
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
-    ChipField,
+    ChipField, ReferenceInput, SelectInput,
+    ReferenceField
 } from 'react-admin';
 
 import { Box, Typography } from "@material-ui/core";
@@ -97,6 +98,14 @@ export const ArticleList = props => (
                 label="Аннотация"
                 source="text"
                 maxchars={250} />
+            <ReferenceField
+                label="Место публикации"
+                source="publicationPlace"
+                reference="publication"
+                linkType=""
+                >
+                <TextField source="name" />
+            </ReferenceField>
             <ArrayField
                 source="authors"
                 label="Авторы">
@@ -114,9 +123,6 @@ export const ArticleList = props => (
         </Datagrid>
     </List>
 );
-
-const optionRenderer = choice => `${choice.lastName} ${choice.firstName} ${choice.middleName}`;
-const inputText = choice => `${choice.lastName} ${choice.firstName} ${choice.middleName}`;
 
 export const ArticleCreate = props => (
     <Create
@@ -154,6 +160,12 @@ export const ArticleCreate = props => (
                         source="author" />
                 </SimpleFormIterator>
             </ArrayInput>
+            <ReferenceInput
+                label="Место публикации"
+                source="publicationPlace"
+                reference="publication">
+                <SelectInput optionText="name" />
+            </ReferenceInput>
             <FileInput
                 source="file"
                 label="PDF файл"
@@ -202,6 +214,12 @@ export const ArticleEdit = props => (
                         source="author" />
                 </SimpleFormIterator>
             </ArrayInput>
+            <ReferenceInput
+                label="Место публикации"
+                source="publicationPlace"
+                reference="publication">
+                <SelectInput optionText="name" />
+            </ReferenceInput>
             <FileField
                 source="file.url"
                 title="file.title"
@@ -246,6 +264,12 @@ export const ArticleShow = ({ enableActions, ...props }) => {
                             source="author" />
                     </SingleFieldList>
                 </ArrayField>
+                <ReferenceField
+                    label="Место публикации"
+                    source="publicationPlace"
+                    reference="publication">
+                    <TextField source="name" />
+                </ReferenceField>
                 <FileField
                     source="file.url"
                     title="file.title"

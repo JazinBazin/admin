@@ -55,6 +55,17 @@ const dataProvider = {
         }
         return restProvider.update(resource, params);
     },
+    getMany: (resource, params) => {
+        const formData = new FormData();
+        formData.append('ids', JSON.stringify(params.ids));
+        const path = `${apiUrl}/${resource}/many`;
+        return fetch(path, {
+            method: 'POST',
+            body: formData
+        })
+            .then(data => data.json())
+            .then(json => ({ data: json }));
+    },
     // getMany: (resource, params) => {
     //     const id = params.ids[0];
     //     return fetch(`${apiUrl}/${resource}/${id}`)

@@ -2,6 +2,8 @@ const jsonParser = require("express").json();
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const listParamsMiddleware = require("./utils").listParamsMiddleware;
+var multer = require('multer')
+var upload = multer();
 
 const publicationPlaceSchema = new Schema(
     {
@@ -122,5 +124,23 @@ module.exports = function (app) {
                 res.json(publicationPlaceToSend);
             })
             .catch(error => console.log(error));
+    });
+
+    // getMany
+    app.post("/api/publication/many", upload.array('ids'), (req, res) => {
+        const ids = JSON.parse(req.body.ids);
+        PublicationPlace.find().where("_id").in(ids).exec((error, records) => {
+            let publicationPlacesToSend = [];
+            for (const publicationPlace of records) {
+                publicationPlacesToSend.push({
+                    id: publicationPlace.id,
+                    name: publicationPlace.name,
+                    rating: publicationPlace.rating,
+                    firstCreationDate: publicationPlace.firstCreationDate,
+                });
+            }
+            res.status(200);
+            res.send(publicationPlacesToSend);
+        });
     });
 }

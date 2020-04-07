@@ -9,6 +9,7 @@ import { PublicationPlaceList, PublicationPlaceEdit, PublicationPlaceCreate, Pub
 import DashBoard from './DashBoard';
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -52,7 +53,7 @@ const AdminPanel = () => (
                 show={ProgrammShow} />
             <Resource
                 name="publication"
-                icon={CodeIcon}
+                icon={VisibilityIcon}
                 options={{ label: 'Места публикации' }}
                 list={PublicationPlaceList}
                 edit={PublicationPlaceEdit}
