@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,
@@ -6,38 +7,31 @@ import {
     Filter, FileInput, FileField,
     DateField,
     required, minLength, maxLength,
-    TopToolbar, EditButton, ListButton,
-    RefreshButton, CreateButton,
-    ShowButton, CloneButton
 } from 'react-admin';
 
-import { Box, Typography } from "@material-ui/core";
-import { HeadlineField, DescriptionField } from './fields';
+import {
+    createTitle, createEmptyPage,
+    getShowActions, getEditActionsWithoutFile
+} from "../utils";
+
+import { HeadlineField, DescriptionField } from '../CustomFields';
 import { DateInput } from 'react-admin-date-inputs2';
 
 const validateHeadline = [required(), minLength(1), maxLength(100)];
 const validateDescription = [required(), minLength(1), maxLength(1000)];
 const validateCreationDate = [required(),];
+const validateFile = [required(),];
+
 const dateFormat = 'dd.MM.yyyy';
 const cancelLabel = "Отмена"
 
-const ProgrammTitle = ({ record }) => {
-    return <span>{` Программа: "${record.headline}"`}</span>;
-};
+const Title = createTitle("Программа", "headline");
+const Empty = createEmptyPage("Нет доступных программ",
+    'Для добавления программы нажмите кнопку "Создать"')
+const ShowActions = getShowActions();
+const EditActions = getEditActionsWithoutFile();
 
-const ProgrammEmpty = ({ basePath, resource }) => (
-    <Box textAlign="center" m={1}>
-        <Typography variant="h4" paragraph>
-            Нет доступных статей
-        </Typography>
-        <Typography variant="body1">
-            Для создания статьи нажмите кнопку "Создать"
-        </Typography>
-        <CreateButton basePath={basePath} />
-    </Box>
-);
-
-const ProgrammFilter = (props) => (
+const Filters = (props) => (
     <Filter {...props}>
         <TextInput
             label="Поиск по названию"
@@ -53,40 +47,18 @@ const ProgrammFilter = (props) => (
     </Filter>
 );
 
-const ProgrammShowActions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} record={data} />
-        <EditButton basePath={basePath} record={data} />
-        <RefreshButton basePath={basePath} record={data} />
-    </TopToolbar>
-);
-
-const ProgrammEditActions = ({ basePath, data, resource }) => {
-    const dataWithoutFile = { ...data };
-    delete dataWithoutFile.file;
-    return (
-        <TopToolbar>
-            <ListButton basePath={basePath} record={data} />
-            <CreateButton basePath={basePath} record={data} />
-            <CloneButton basePath={basePath} record={dataWithoutFile} />
-            <ShowButton basePath={basePath} record={data} />
-            <RefreshButton basePath={basePath} record={data} />
-        </TopToolbar>
-    );
-}
-
-export const ProgrammList = props => (
+export const ListForm = props => (
     <List
         title="Список программ"
-        filters={<ProgrammFilter />}
+        filters={<Filters />}
         perPage={25}
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
-        empty={<ProgrammEmpty />}
+        empty={<Empty />}
         {...props}>
         <Datagrid
             rowClick="edit"
-            expand={<ProgrammShow enableActions={false} />}>>
+            expand={<ShowForm enableActions={false} />}>>
             <HeadlineField
                 label="Название"
                 source="headline" />
@@ -103,7 +75,7 @@ export const ProgrammList = props => (
     </List>
 );
 
-export const ProgrammCreate = props => (
+export const CreateForm = props => (
     <Create
         title="Добавить программу"
         successMessage="Программа добавлена"
@@ -132,7 +104,7 @@ export const ProgrammCreate = props => (
                 source="file"
                 label="Архив с программой"
                 accept="application/x-rar-compressed, application/zip"
-                validate={required()}>
+                validate={validateFile}>
                 <FileField
                     source="file"
                     title="Загруженный файл" />
@@ -141,12 +113,12 @@ export const ProgrammCreate = props => (
     </Create>
 );
 
-export const ProgrammEdit = props => (
+export const EditForm = props => (
     <Edit
-        title={<ProgrammTitle />}
+        title={<Title />}
         successMessage="Программа обновлена"
         undoable={false}
-        actions={<ProgrammEditActions />}
+        actions={<EditActions />}
         {...props}>
         <SimpleForm
             submitOnEnter={false}>
@@ -183,11 +155,11 @@ export const ProgrammEdit = props => (
     </Edit>
 );
 
-export const ProgrammShow = ({ enableActions, ...props }) => {
-    const actions = enableActions ? <ProgrammShowActions /> : false;
+export const ShowForm = ({ enableActions, ...props }) => {
+    const actions = enableActions ? <ShowActions /> : false;
     return (
         <Show
-            title={<ProgrammTitle />}
+            title={<Title />}
             actions={actions}
             {...props}>
             <SimpleShowLayout>
@@ -211,6 +183,6 @@ export const ProgrammShow = ({ enableActions, ...props }) => {
     );
 };
 
-ProgrammShow.defaultProps = {
+ShowForm.defaultProps = {
     enableActions: true,
 }

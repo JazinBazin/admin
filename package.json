@@ -4,8 +4,8 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm run watch\" \"npm run server\"",
     "start-debug": "concurrently --kill-others \"npm run watch\" \"npm run server-debug\"",
-    "server": "node src/server.js",
-    "server-debug": "node --nolazy --inspect-brk=9229 src/server.js",
+    "server": "node src/server/server.js",
+    "server-debug": "node --nolazy --inspect-brk=9229 src/server/server.js",
     "watch": "webpack --watch",
     "build": "webpack"
   },

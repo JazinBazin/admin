@@ -10,15 +10,15 @@ import {
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
     ChipField, ReferenceInput, SelectInput,
-    ReferenceField, NumberInput
+    ReferenceField, NumberInput,
 } from 'react-admin';
 
 import {
     createTitle, createEmptyPage,
     getShowActions, getEditActionsWithoutFile
-} from "./utils";
+} from "../utils";
 
-import { HeadlineField, DescriptionField } from './fields';
+import { HeadlineField, DescriptionField, RotaField } from '../CustomFields';
 import { DateInput } from 'react-admin-date-inputs2';
 
 const validateHeadline = [required(), minLength(1), maxLength(100)];
@@ -33,7 +33,7 @@ const cancelLabel = "Отмена"
 
 const Title = createTitle("Статья", "headline");
 const Empty = createEmptyPage("Нет доступных статей",
-    'Для создания статьи нажмите кнопку "Создать"')
+    'Для добавления статьи нажмите кнопку "Создать"')
 const ShowActions = getShowActions();
 const EditActions = getEditActionsWithoutFile();
 
@@ -46,6 +46,22 @@ const Filters = (props) => (
         <TextInput
             label="Аннотация"
             source="text" />
+        <ReferenceInput
+            label="Место публикации"
+            source="publicationPlace"
+            reference="publication">
+            <SelectInput optionText="name" />
+        </ReferenceInput>
+        <ReferenceInput
+            label="Отдел"
+            source="department"
+            reference="departments">
+            <SelectInput optionText="name" />
+        </ReferenceInput>
+        <NumberInput
+            label="Рота"
+            source="rota"
+            validate={validateRota} />
         <DateInput
             label="Дата создания"
             source="creationDate"
@@ -79,6 +95,16 @@ export const ListForm = props => (
                 linkType="">
                 <TextField source="name" />
             </ReferenceField>
+            <ReferenceField
+                label="Отдел"
+                source="department"
+                reference="departments"
+                linkType="">
+                <TextField source="name" />
+            </ReferenceField>
+            <RotaField
+                label="Рота"
+                source="rota" />
             <ArrayField
                 source="authors"
                 label="Авторы">
@@ -143,6 +169,12 @@ export const CreateForm = props => (
                 label="Рота"
                 source="rota"
                 validate={validateRota} />
+            <ReferenceInput
+                label="Отдел"
+                source="department"
+                reference="departments">
+                <SelectInput optionText="name" />
+            </ReferenceInput>
             <FileInput
                 source="file"
                 label="PDF файл"
@@ -197,6 +229,16 @@ export const EditForm = props => (
                 reference="publication">
                 <SelectInput optionText="name" />
             </ReferenceInput>
+            <NumberInput
+                label="Рота"
+                source="rota"
+                validate={validateRota} />
+            <ReferenceInput
+                label="Отдел"
+                source="department"
+                reference="departments">
+                <SelectInput optionText="name" />
+            </ReferenceInput>
             <FileField
                 source="file.url"
                 title="file.title"
@@ -244,7 +286,18 @@ export const ShowForm = ({ enableActions, ...props }) => {
                 <ReferenceField
                     label="Место публикации"
                     source="publicationPlace"
-                    reference="publication">
+                    reference="publication"
+                    linkType="">
+                    <TextField source="name" />
+                </ReferenceField>
+                <TextField
+                    label="Рота"
+                    source="rota" />
+                <ReferenceField
+                    label="Отдел"
+                    source="department"
+                    reference="departments"
+                    linkType="">
                     <TextField source="name" />
                 </ReferenceField>
                 <FileField

@@ -4,12 +4,11 @@ import {
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, required, minLength,
-    NumberField, NumberInput,
 } from 'react-admin';
 import {
     createTitle, createEmptyPage,
     getShowActions, getEditActions
-} from "./utils";
+} from "../utils";
 
 const validateName = [required(), minLength(1)];;
 

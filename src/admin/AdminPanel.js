@@ -1,6 +1,5 @@
 import React from "react";
 
-import dataProvider from './DataProvider';
 import { Admin, Resource } from 'react-admin';
 
 import {
@@ -10,7 +9,12 @@ import {
     ShowForm as ArticleShow,
 } from './resources/articles';
 
-import { ProgrammList, ProgrammEdit, ProgrammCreate, ProgrammShow } from './resources/programms';
+import {
+    ListForm as ProgrammList,
+    EditForm as ProgrammEdit,
+    CreateForm as ProgrammCreate,
+    ShowForm as ProgrammShow,
+} from './resources/programms';
 
 import {
     ListForm as PublicationList,
@@ -27,10 +31,13 @@ import {
 } from './resources/departments';
 
 import DashBoard from './DashBoard';
+
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import GroupIcon from '@material-ui/icons/Group';
+
+import dataProvider from './DataProvider';
 
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import russianMessages from 'ra-language-russian';

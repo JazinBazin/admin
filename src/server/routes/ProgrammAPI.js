@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const createAPIwithFile = require("./utils").createAPIwithFile;
+const createAPIwithFile = require("../utils").createAPIwithFile;
 
 const schema = new Schema(
     {

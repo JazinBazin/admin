@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const createAPI = require("./utils").createAPI;
+const createAPI = require("../utils").createAPI;
 
 const schema = new Schema({
     name: {
         type: String,
-        required: true,
-    },
-    rating: {
-        type: Number,
-        min: 1,
         required: true,
     },
     firstCreationDate: {
@@ -19,7 +14,7 @@ const schema = new Schema({
 },
     { versionKey: false });
 
-const Model = mongoose.model('PublicationPlace', schema);
+const Model = mongoose.model('Department', schema);
 
 function extractDataToSend(data) {
     return {
@@ -33,11 +28,10 @@ function extractDataToSend(data) {
 function extractDataFromRequest(req) {
     return {
         "name": req.body.name,
-        "rating": req.body.rating
     }
 }
 
-const resource = "publication";
+const resource = "departments";
 
 module.exports = function (app) {
     createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest);

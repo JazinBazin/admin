@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const createAPIwithFile = require("./utils").createAPIwithFile;
+const createAPIwithFile = require("../utils").createAPIwithFile;
 
 const schema = new Schema({
     headline: {
@@ -30,6 +30,10 @@ const schema = new Schema({
         required: false,
         min: 1
     },
+    department: {
+        type: Schema.Types.ObjectId,
+        ref: "Department"
+    },
     authors: [{ author: String }],
     file: {
         type: String,
@@ -52,6 +56,8 @@ function extractDataToSend(data) {
         creationDate: data.creationDate,
         firstCreationDate: data.firstCreationDate,
         publicationPlace: data.publicationPlace,
+        rota: data.rota,
+        department: data.department,
         authors: data.authors,
         file: {
             url: data.file,
@@ -66,6 +72,8 @@ function extractDataFromRequest(req) {
         "text": req.body.text,
         "creationDate": new Date(req.body.creationDate),
         "publicationPlace": req.body.publicationPlace,
+        "rota": req.body.rota,
+        "department": req.body.department,
         "authors": JSON.parse(req.body.authors)
     }
 }

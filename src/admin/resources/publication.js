@@ -11,7 +11,7 @@ import {
 import {
     createTitle, createEmptyPage,
     getShowActions, getEditActions
-} from "./utils";
+} from "../utils";
 
 const validateName = [required(), minLength(1)];
 const validateRating = [required(), minValue(1)];
