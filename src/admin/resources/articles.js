@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,
@@ -6,42 +7,37 @@ import {
     Filter, FileInput, FileField,
     DateField, minValue,
     required, minLength, maxLength,
-    TopToolbar, EditButton, ListButton,
-    RefreshButton, CreateButton,
-    ShowButton, CloneButton,
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
     ChipField, ReferenceInput, SelectInput,
     ReferenceField, NumberInput
 } from 'react-admin';
 
-import { Box, Typography } from "@material-ui/core";
+import {
+    createTitle, createEmptyPage,
+    getShowActions, getEditActionsWithoutFile
+} from "./utils";
+
 import { HeadlineField, DescriptionField } from './fields';
 import { DateInput } from 'react-admin-date-inputs2';
 
 const validateHeadline = [required(), minLength(1), maxLength(100)];
 const validateAnnotation = [required(), minLength(1), maxLength(1000)];
 const validateCreationDate = [required(),];
+const validateAuthors = [required(),];
+const validateRota = [minValue(1),];
+const validateFile = [required(),];
+
 const dateFormat = 'dd.MM.yyyy';
 const cancelLabel = "Отмена"
 
-const ArticleTitle = ({ record }) => {
-    return <span>{` Статья: "${record.headline}"`}</span>;
-};
+const Title = createTitle("Статья", "headline");
+const Empty = createEmptyPage("Нет доступных статей",
+    'Для создания статьи нажмите кнопку "Создать"')
+const ShowActions = getShowActions();
+const EditActions = getEditActionsWithoutFile();
 
-const ArticleEmpty = ({ basePath, resource }) => (
-    <Box textAlign="center" m={1}>
-        <Typography variant="h4" paragraph>
-            Нет доступных статей
-        </Typography>
-        <Typography variant="body1">
-            Для создания статьи нажмите кнопку "Создать"
-        </Typography>
-        <CreateButton basePath={basePath} />
-    </Box>
-);
-
-const ArticleFilter = (props) => (
+const Filters = (props) => (
     <Filter {...props}>
         <TextInput
             label="Поиск по названию"
@@ -57,40 +53,18 @@ const ArticleFilter = (props) => (
     </Filter>
 );
 
-const ArticleShowActions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} record={data} />
-        <EditButton basePath={basePath} record={data} />
-        <RefreshButton basePath={basePath} record={data} />
-    </TopToolbar>
-);
-
-const ArticleEditActions = ({ basePath, data, resource }) => {
-    const dataWithoutFile = { ...data };
-    delete dataWithoutFile.file;
-    return (
-        <TopToolbar>
-            <ListButton basePath={basePath} record={data} />
-            <CreateButton basePath={basePath} record={data} />
-            <CloneButton basePath={basePath} record={dataWithoutFile} />
-            <ShowButton basePath={basePath} record={data} />
-            <RefreshButton basePath={basePath} record={data} />
-        </TopToolbar>
-    );
-}
-
-export const ArticleList = props => (
+export const ListForm = props => (
     <List
         title="Список статей"
-        filters={<ArticleFilter />}
+        filters={<Filters />}
         perPage={25}
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
-        empty={<ArticleEmpty />}
+        empty={<Empty />}
         {...props}>
         <Datagrid
             rowClick="edit"
-            expand={<ArticleShow enableActions={false} />}>
+            expand={<ShowForm enableActions={false} />}>
             <HeadlineField
                 label="Название"
                 source="headline" />
@@ -123,7 +97,7 @@ export const ArticleList = props => (
     </List>
 );
 
-export const ArticleCreate = props => (
+export const CreateForm = props => (
     <Create
         title="Добавить статью"
         successMessage="Статья добавлена"
@@ -150,7 +124,7 @@ export const ArticleCreate = props => (
                 validate={validateCreationDate}
                 options={{ format: dateFormat, cancelLabel: cancelLabel }} />
             <ArrayInput
-                validate={required()}
+                validate={validateAuthors}
                 source="authors"
                 label="Авторы">
                 <SimpleFormIterator>
@@ -168,12 +142,12 @@ export const ArticleCreate = props => (
             <NumberInput
                 label="Рота"
                 source="rota"
-                validate={minValue(1)} />
+                validate={validateRota} />
             <FileInput
                 source="file"
                 label="PDF файл"
                 accept="application/pdf"
-                validate={required()}>
+                validate={validateFile}>
                 <FileField
                     source="file"
                     title="Загруженный файл" />
@@ -182,12 +156,12 @@ export const ArticleCreate = props => (
     </Create>
 );
 
-export const ArticleEdit = props => (
+export const EditForm = props => (
     <Edit
-        title={<ArticleTitle />}
+        title={<Title />}
         successMessage="Статья обновлена"
         undoable={false}
-        actions={<ArticleEditActions />}
+        actions={<EditActions />}
         {...props}>
         <SimpleForm
             submitOnEnter={false}>
@@ -208,7 +182,7 @@ export const ArticleEdit = props => (
                 validate={validateCreationDate}
                 options={{ format: dateFormat, cancelLabel: cancelLabel }} />
             <ArrayInput
-                validate={required()}
+                validate={validateAuthors}
                 label="Авторы"
                 source="authors">
                 <SimpleFormIterator>
@@ -240,11 +214,11 @@ export const ArticleEdit = props => (
     </Edit>
 );
 
-export const ArticleShow = ({ enableActions, ...props }) => {
-    const actions = enableActions ? <ArticleShowActions /> : false;
+export const ShowForm = ({ enableActions, ...props }) => {
+    const actions = enableActions ? <ShowActions /> : false;
     return (
         <Show
-            title={<ArticleTitle />}
+            title={<Title />}
             actions={actions}
             {...props}>
             <SimpleShowLayout>
@@ -283,6 +257,6 @@ export const ArticleShow = ({ enableActions, ...props }) => {
     );
 };
 
-ArticleShow.defaultProps = {
+ShowForm.defaultProps = {
     enableActions: true,
 }

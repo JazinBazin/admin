@@ -3,7 +3,13 @@ import React from "react";
 import dataProvider from './DataProvider';
 import { Admin, Resource } from 'react-admin';
 
-import { ArticleList, ArticleEdit, ArticleCreate, ArticleShow } from './resources/articles';
+import {
+    ListForm as ArticleList,
+    EditForm as ArticleEdit,
+    CreateForm as ArticleCreate,
+    ShowForm as ArticleShow,
+} from './resources/articles';
+
 import { ProgrammList, ProgrammEdit, ProgrammCreate, ProgrammShow } from './resources/programms';
 
 import {

@@ -1,4 +1,5 @@
 import React from 'react';
+;
 import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,
@@ -6,6 +7,7 @@ import {
     Filter, required, minLength, minValue,
     NumberField, NumberInput,
 } from 'react-admin';
+
 import {
     createTitle, createEmptyPage,
     getShowActions, getEditActions
@@ -14,7 +16,7 @@ import {
 const validateName = [required(), minLength(1)];
 const validateRating = [required(), minValue(1)];
 
-const Title = createTitle("Место публикации");
+const Title = createTitle("Место публикации", "name");
 const Empty = createEmptyPage("Нет доступных мест публикации",
     'Для добавления места публикации нажмите кнопку "Создать"')
 const ShowActions = getShowActions();

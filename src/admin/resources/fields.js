@@ -24,7 +24,3 @@ export const DescriptionField = ({ source, maxchars = 300, record = {} }) => {
         description = description.slice(0, maxchars) + "…";
     return <span>{description}</span>
 }
-
-export const AuthorField = ({ record = {} }) => (
-    <span>{record.lastName} {record.firstName} {record.middleName}</span>
-);

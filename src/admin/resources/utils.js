@@ -6,9 +6,9 @@ import {
 } from 'react-admin';
 import { Box, Typography } from "@material-ui/core";
 
-export function createTitle(title) {
+export function createTitle(title, recordName) {
     return ({ record }) => {
-        return <span>{` ${title}: "${record.name}"`}</span>;
+        return <span>{` ${title}: "${record[recordName]}"`}</span>;
     };
 }
 
@@ -46,4 +46,20 @@ export function getEditActions() {
             <RefreshButton basePath={basePath} record={data} />
         </TopToolbar>
     );
+}
+
+export function getEditActionsWithoutFile() {
+    return ({ basePath, data, resource }) => {
+        const dataWithoutFile = { ...data };
+        delete dataWithoutFile.file;
+        return (
+            <TopToolbar>
+                <ListButton basePath={basePath} record={data} />
+                <CreateButton basePath={basePath} record={data} />
+                <CloneButton basePath={basePath} record={dataWithoutFile} />
+                <ShowButton basePath={basePath} record={data} />
+                <RefreshButton basePath={basePath} record={data} />
+            </TopToolbar>
+        );
+    }
 }
