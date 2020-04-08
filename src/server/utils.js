@@ -7,6 +7,7 @@ const appRoot = require('app-root-path');
 const shortid = require('shortid');
 
 function listParamsMiddleware(req, res, next) {
+
     const sort = JSON.parse(req.query.sort);
     const sortField = sort[0];
     const sortOrder = sort[1];
@@ -21,6 +22,12 @@ function listParamsMiddleware(req, res, next) {
             creationDate.setHours(0, 0, 0, 0);
             result[key] = {
                 "$eq": creationDate
+            }
+        }
+        else if (key == "authors") {
+            result["authors.author"] = {
+                "$regex": filters[key],
+                "$options": "i"
             }
         }
         else if (
@@ -90,7 +97,7 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
             .catch(error => console.log(error));
     });
 
-    // getOne +
+    // getOne
     app.get(`/api/${resource}/:id`, (req, res) => {
         Model.findOne({ _id: req.params.id })
             .then(data => res.json(extractDataToSend(data)))

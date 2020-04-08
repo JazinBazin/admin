@@ -46,6 +46,9 @@ const Filters = (props) => (
         <TextInput
             label="Аннотация"
             source="text" />
+        <TextInput
+            label="Автор"
+            source="authors" />
         <ReferenceInput
             label="Место публикации"
             source="publicationPlace"
