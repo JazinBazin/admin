@@ -66,13 +66,6 @@ const dataProvider = {
             .then(data => data.json())
             .then(json => ({ data: json }));
     },
-    // getMany: (resource, params) => {
-    //     const id = params.ids[0];
-    //     return fetch(`${apiUrl}/${resource}/${id}`)
-    //         .then(({ json }) => ({
-    //             data: [json]
-    //         }));
-    // },
 };
 
 export default dataProvider;

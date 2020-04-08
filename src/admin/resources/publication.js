@@ -3,35 +3,24 @@ import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
-    Filter,
-    required, minLength, minValue,
-    TopToolbar, EditButton, ListButton,
-    RefreshButton, CreateButton,
-    ShowButton, CloneButton,
+    Filter, required, minLength, minValue,
     NumberField, NumberInput,
 } from 'react-admin';
-import { Box, Typography } from "@material-ui/core";
+import {
+    createTitle, createEmptyPage,
+    getShowActions, getEditActions
+} from "./utils";
 
 const validateName = [required(), minLength(1)];
 const validateRating = [required(), minValue(1)];
 
-const PublicationPlaceTitle = ({ record }) => {
-    return <span>{` Место публикации: "${record.name}"`}</span>;
-};
+const Title = createTitle("Место публикации");
+const Empty = createEmptyPage("Нет доступных мест публикации",
+    'Для добавления места публикации нажмите кнопку "Создать"')
+const ShowActions = getShowActions();
+const EditActions = getEditActions();
 
-const PublicationPlaceEmpty = ({ basePath, resource }) => (
-    <Box textAlign="center" m={1}>
-        <Typography variant="h4" paragraph>
-            Нет доступных мест публикации
-        </Typography>
-        <Typography variant="body1">
-            Для добавления места публикации нажмите кнопку "Создать"
-        </Typography>
-        <CreateButton basePath={basePath} />
-    </Box>
-);
-
-const PublicationPlaceFilter = (props) => (
+const Filters = (props) => (
     <Filter {...props}>
         <TextInput
             label="Поиск по названию"
@@ -40,40 +29,18 @@ const PublicationPlaceFilter = (props) => (
     </Filter>
 );
 
-// ref
-
-const PublicationPlaceShowActions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} record={data} />
-        <EditButton basePath={basePath} record={data} />
-        <RefreshButton basePath={basePath} record={data} />
-    </TopToolbar>
-);
-
-// ref
-
-const PublicationPlaceEditActions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} record={data} />
-        <CreateButton basePath={basePath} record={data} />
-        <CloneButton basePath={basePath} record={data} />
-        <ShowButton basePath={basePath} record={data} />
-        <RefreshButton basePath={basePath} record={data} />
-    </TopToolbar>
-);
-
-export const PublicationPlaceList = props => (
+export const ListForm = props => (
     <List
         title="Список мест публикации"
-        filters={<PublicationPlaceFilter />}
+        filters={<Filters />}
         perPage={25}
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
-        empty={<PublicationPlaceEmpty />}
+        empty={<Empty />}
         {...props}>
         <Datagrid
             rowClick="edit"
-            expand={<PublicationPlaceShow enableActions={false} />}>
+            expand={<ShowForm enableActions={false} />}>
             <TextField
                 label="Место публикации"
                 source="name" />
@@ -84,7 +51,7 @@ export const PublicationPlaceList = props => (
     </List>
 );
 
-export const PublicationPlaceCreate = props => (
+export const CreateForm = props => (
     <Create
         title="Добавить место публикации"
         successMessage="Место публикации добавлено"
@@ -107,12 +74,12 @@ export const PublicationPlaceCreate = props => (
     </Create>
 );
 
-export const PublicationPlaceEdit = props => (
+export const EditForm = props => (
     <Edit
-        title={<PublicationPlaceTitle />}
+        title={<Title />}
         successMessage="Место публикации обновлено"
         undoable={false}
-        actions={<PublicationPlaceEditActions />}
+        actions={<EditActions />}
         {...props}>
         <SimpleForm
             submitOnEnter={false}>
@@ -130,11 +97,11 @@ export const PublicationPlaceEdit = props => (
     </Edit>
 );
 
-export const PublicationPlaceShow = ({ enableActions, ...props }) => {
-    const actions = enableActions ? <PublicationPlaceShowActions /> : false;
+export const ShowForm = ({ enableActions, ...props }) => {
+    const actions = enableActions ? <ShowActions /> : false;
     return (
         <Show
-            title={<PublicationPlaceTitle />}
+            title={<Title />}
             actions={actions}
             {...props}>
             <SimpleShowLayout>
@@ -149,6 +116,6 @@ export const PublicationPlaceShow = ({ enableActions, ...props }) => {
     );
 };
 
-PublicationPlaceShow.defaultProps = {
+ShowForm.defaultProps = {
     enableActions: true,
 }

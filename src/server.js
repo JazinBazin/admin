@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const appRoot = require('app-root-path');
 const express = require("express");
 const app = express();
-require('./routes/ArticleRoutes')(app);
-require('./routes/ProgrammRoutes')(app);
-require('./routes/PublicationPlaceRoutes')(app);
+
+require('./routes/ArticleAPI')(app);
+require('./routes/ProgrammAPI')(app);
+require('./routes/PublicationAPI')(app);
+require('./routes/DepartmentAPI')(app);
 
 app.use(function (req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");

@@ -1,15 +1,33 @@
 import React from "react";
+
 import dataProvider from './DataProvider';
-import polyglotI18nProvider from 'ra-i18n-polyglot';
-import russianMessages from 'ra-language-russian';
 import { Admin, Resource } from 'react-admin';
+
 import { ArticleList, ArticleEdit, ArticleCreate, ArticleShow } from './resources/articles';
 import { ProgrammList, ProgrammEdit, ProgrammCreate, ProgrammShow } from './resources/programms';
-import { PublicationPlaceList, PublicationPlaceEdit, PublicationPlaceCreate, PublicationPlaceShow } from './resources/PublicationPlace';
+
+import {
+    ListForm as PublicationList,
+    EditForm as PublicationEdit,
+    CreateForm as PublicationCreate,
+    ShowForm as PublicationShow,
+} from './resources/publication';
+
+import {
+    ListForm as DepartmentList,
+    EditForm as DepartmentEdit,
+    CreateForm as DepartmentCreate,
+    ShowForm as DepartmentShow,
+} from './resources/departments';
+
 import DashBoard from './DashBoard';
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import GroupIcon from '@material-ui/icons/Group';
+
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import russianMessages from 'ra-language-russian';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -55,10 +73,18 @@ const AdminPanel = () => (
                 name="publication"
                 icon={VisibilityIcon}
                 options={{ label: 'Места публикации' }}
-                list={PublicationPlaceList}
-                edit={PublicationPlaceEdit}
-                create={PublicationPlaceCreate}
-                show={PublicationPlaceShow} />
+                list={PublicationList}
+                edit={PublicationEdit}
+                create={PublicationCreate}
+                show={PublicationShow} />
+            <Resource
+                name="departments"
+                icon={GroupIcon}
+                options={{ label: 'Отделы' }}
+                list={DepartmentList}
+                edit={DepartmentEdit}
+                create={DepartmentCreate}
+                show={DepartmentShow} />
         </Admin>
     </MuiPickersUtilsProvider>
 );
