@@ -1,5 +1,5 @@
 import React from 'react';
-;
+
 import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,

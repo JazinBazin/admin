@@ -30,5 +30,7 @@ export const DescriptionField = ({ source, maxchars = 300, record = {} }) => {
 
 export const RotaField = ({ source, record = {} }) => {
     const classes = useStyles();
-    return <div className={classes.rota}>{record[source]} НР</div>
+    if (record[source])
+        return <div className={classes.rota}>{record[source]} НР</div>
+    else return null;
 }

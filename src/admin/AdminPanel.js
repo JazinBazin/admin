@@ -17,6 +17,13 @@ import {
 } from './resources/programms';
 
 import {
+    ListForm as ResearchList,
+    EditForm as ResearchEdit,
+    CreateForm as ResearchCreate,
+    ShowForm as ResearchShow,
+} from './resources/research';
+
+import {
     ListForm as PublicationList,
     EditForm as PublicationEdit,
     CreateForm as PublicationCreate,
@@ -34,6 +41,8 @@ import DashBoard from './DashBoard';
 
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
+// import CastForEducationIcon from '@material-ui/icons/CastForEducation';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import GroupIcon from '@material-ui/icons/Group';
 
@@ -82,6 +91,14 @@ const AdminPanel = () => (
                 edit={ProgrammEdit}
                 create={ProgrammCreate}
                 show={ProgrammShow} />
+            <Resource
+                name="research"
+                icon={MenuBookIcon}
+                options={{ label: 'Научные работы' }}
+                list={ResearchList}
+                edit={ResearchEdit}
+                create={ResearchCreate}
+                show={ResearchShow} />
             <Resource
                 name="publication"
                 icon={VisibilityIcon}

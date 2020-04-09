@@ -8,6 +8,7 @@ require('./routes/ArticleAPI')(app);
 require('./routes/ProgrammAPI')(app);
 require('./routes/PublicationAPI')(app);
 require('./routes/DepartmentAPI')(app);
+require('./routes/ResearchAPI')(app);
 
 app.use(function (req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");

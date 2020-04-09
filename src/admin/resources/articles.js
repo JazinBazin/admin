@@ -6,7 +6,7 @@ import {
     Create, Show, SimpleShowLayout,
     Filter, FileInput, FileField,
     DateField, minValue,
-    required, minLength, maxLength,
+    required, minLength,
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
     ChipField, ReferenceInput, SelectInput,
@@ -21,8 +21,8 @@ import {
 import { HeadlineField, DescriptionField, RotaField } from '../CustomFields';
 import { DateInput } from 'react-admin-date-inputs2';
 
-const validateHeadline = [required(), minLength(1), maxLength(100)];
-const validateAnnotation = [required(), minLength(1), maxLength(1000)];
+const validateHeadline = [required(), minLength(1),];
+const validateAnnotation = [required(), minLength(1),];
 const validateCreationDate = [required(),];
 const validateAuthors = [required(),];
 const validateRota = [minValue(1),];
@@ -95,14 +95,14 @@ export const ListForm = props => (
                 label="Место публикации"
                 source="publicationPlace"
                 reference="publication"
-                linkType="">
+                link="">
                 <TextField source="name" />
             </ReferenceField>
             <ReferenceField
                 label="Отдел"
                 source="department"
                 reference="departments"
-                linkType="">
+                link="">
                 <TextField source="name" />
             </ReferenceField>
             <RotaField
@@ -111,7 +111,7 @@ export const ListForm = props => (
             <ArrayField
                 source="authors"
                 label="Авторы">
-                <SingleFieldList linkType="">
+                <SingleFieldList link="">
                     <ChipField
                         label="Автор"
                         source="author" />
@@ -280,7 +280,7 @@ export const ShowForm = ({ enableActions, ...props }) => {
                 <ArrayField
                     label="Авторы"
                     source="authors">
-                    <SingleFieldList linkType="">
+                    <SingleFieldList link="">
                         <ChipField
                             label="Автор"
                             source="author" />
@@ -290,7 +290,7 @@ export const ShowForm = ({ enableActions, ...props }) => {
                     label="Место публикации"
                     source="publicationPlace"
                     reference="publication"
-                    linkType="">
+                    link="">
                     <TextField source="name" />
                 </ReferenceField>
                 <TextField
@@ -300,7 +300,7 @@ export const ShowForm = ({ enableActions, ...props }) => {
                     label="Отдел"
                     source="department"
                     reference="departments"
-                    linkType="">
+                    link="">
                     <TextField source="name" />
                 </ReferenceField>
                 <FileField

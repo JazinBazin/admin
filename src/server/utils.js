@@ -7,7 +7,6 @@ const appRoot = require('app-root-path');
 const shortid = require('shortid');
 
 function listParamsMiddleware(req, res, next) {
-
     const sort = JSON.parse(req.query.sort);
     const sortField = sort[0];
     const sortOrder = sort[1];
@@ -104,12 +103,12 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
             .catch(error => console.log(error));
     });
 
-    // getMany +
+    // getMany
     app.post(`/api/${resource}/many`, upload.array('ids'), (req, res) => {
         Model.find().where("_id").in(JSON.parse(req.body.ids)).exec((error, records) => {
             if (error) console.log(error);
             else {
-                let dataToSend = records.map(data => extractDataToSend(data));
+                const dataToSend = records.map(data => extractDataToSend(data));
                 res.send(dataToSend);
             }
         });
@@ -119,7 +118,7 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
 function createAPIwithFile(app, resource, mimeTypes,
     Model, extractDataToSend, extractDataFromRequest) {
 
-    const filesFolder = `/media/${resource}`;
+    const filesFolder = path.join("/media/", resource);
 
     const filesStorage = multer.diskStorage({
         destination: (req, file, cb) => {

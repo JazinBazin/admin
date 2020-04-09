@@ -6,12 +6,10 @@ const schema = new Schema({
     headline: {
         type: String,
         required: true,
-        maxlength: 100
     },
     text: {
         type: String,
         required: true,
-        maxlength: 5000
     },
     creationDate: {
         type: Date,

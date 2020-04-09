@@ -1,10 +1,12 @@
 import React from 'react';
+
 import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, required, minLength,
 } from 'react-admin';
+
 import {
     createTitle, createEmptyPage,
     getShowActions, getEditActions

@@ -31,9 +31,9 @@ const validateFile = [required(),];
 const dateFormat = 'dd.MM.yyyy';
 const cancelLabel = "Отмена"
 
-const Title = createTitle("Программа", "headline");
-const Empty = createEmptyPage("Нет доступных программ",
-    'Для добавления программы нажмите кнопку "Создать"')
+const Title = createTitle("Научная работа", "headline");
+const Empty = createEmptyPage("Нет доступных научных работ",
+    'Для добавления научной работы нажмите кнопку "Создать"')
 const ShowActions = getShowActions();
 const EditActions = getEditActionsWithoutFile();
 
@@ -68,7 +68,7 @@ const Filters = (props) => (
 
 export const ListForm = props => (
     <List
-        title="Список программ"
+        title="Список научных работ"
         filters={<Filters />}
         perPage={25}
         exporter={false}
@@ -115,8 +115,8 @@ export const ListForm = props => (
 
 export const CreateForm = props => (
     <Create
-        title="Добавить программу"
-        successMessage="Программа добавлена"
+        title="Добавить научную работу"
+        successMessage="Научная работа добавлена"
         undoable={false}
         {...props}>
         <SimpleForm
@@ -160,8 +160,8 @@ export const CreateForm = props => (
             </ReferenceInput>
             <FileInput
                 source="file"
-                label="Архив с программой"
-                accept="application/x-rar-compressed, application/zip"
+                label="PDF файл"
+                accept="application/pdf"
                 validate={validateFile}>
                 <FileField
                     source="file"
@@ -174,7 +174,7 @@ export const CreateForm = props => (
 export const EditForm = props => (
     <Edit
         title={<Title />}
-        successMessage="Программа обновлена"
+        successMessage="Научная работа обновлена"
         undoable={false}
         actions={<EditActions />}
         {...props}>
@@ -219,12 +219,12 @@ export const EditForm = props => (
             <FileField
                 source="file.url"
                 title="file.title"
-                label="Архив с программой"
+                label="PDF файл"
                 target="_blank" />
             <FileInput
                 source="newfile"
                 label="Новый файл"
-                accept="application/x-rar-compressed, application/zip">
+                accept="application/pdf">
                 <FileField
                     source="src"
                     title="Загруженный файл" />
@@ -273,7 +273,7 @@ export const ShowForm = ({ enableActions, ...props }) => {
                 <FileField
                     source="file.url"
                     title="file.title"
-                    label="Архив с программой"
+                    label="PDF файл"
                     target="_blank" />
             </SimpleShowLayout>
         </Show>

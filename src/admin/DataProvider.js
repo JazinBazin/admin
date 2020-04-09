@@ -6,7 +6,10 @@ const restProvider = simpleRestProvider(apiUrl);
 const dataProvider = {
     ...restProvider,
     create: (resource, params) => {
-        if (resource == 'articles' || resource == 'programms') {
+        if (
+            resource == 'articles' ||
+            resource == 'programms' ||
+            resource == 'research') {
             const formData = new FormData();
             for (const key in params.data) {
                 if (key == 'creationDate') {
@@ -31,7 +34,10 @@ const dataProvider = {
         return restProvider.create(resource, params);
     },
     update: (resource, params) => {
-        if (resource == 'articles' || resource == 'programms') {
+        if (
+            resource == 'articles' ||
+            resource == 'programms' ||
+            resource == 'research') {
             const formData = new FormData();
             for (const key in params.data) {
                 if (key == 'creationDate') {

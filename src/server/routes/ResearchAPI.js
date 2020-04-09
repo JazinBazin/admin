@@ -7,12 +7,10 @@ const schema = new Schema(
         headline: {
             type: String,
             required: true,
-            maxlength: 100
         },
         description: {
             type: String,
             required: true,
-            maxlength: 5000
         },
         creationDate: {
             type: Date,
@@ -39,11 +37,11 @@ const schema = new Schema(
     },
     { versionKey: false });
 
-const Model = mongoose.model('Programm', schema);
+const Model = mongoose.model('Research', schema);
 
-const resource = "programms";
+const resource = "research";
 
-const mimeTypes = ["application/x-rar-compressed", "application/zip"];
+const mimeTypes = ["application/pdf",];
 
 function extractDataToSend(data) {
     return {
