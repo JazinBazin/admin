@@ -41,7 +41,6 @@ import DashBoard from './DashBoard';
 
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-// import CastForEducationIcon from '@material-ui/icons/CastForEducation';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import GroupIcon from '@material-ui/icons/Group';
@@ -49,7 +48,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import dataProvider from './DataProvider';
 
 import polyglotI18nProvider from 'ra-i18n-polyglot';
-import russianMessages from 'ra-language-russian';
+import russianMessages from './locale';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
