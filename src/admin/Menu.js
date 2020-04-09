@@ -4,16 +4,25 @@ import { useMediaQuery } from '@material-ui/core';
 import { MenuItemLink, getResources } from 'react-admin';
 import DefaultIcon from '@material-ui/icons/ViewList';
 import StarIcon from '@material-ui/icons/Star';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    menuItem: {
+        color: "black"
+    },
+});
 
 const Menu = ({ onMenuClick, logout }) => {
     const isXSmall = useMediaQuery(theme => theme.breakpoints.down('xs'));
     const open = useSelector(state => state.admin.ui.sidebarOpen);
     const resources = useSelector(getResources);
+    const classes = useStyles();
     return (
         <div>
             <MenuItemLink
                 to="/"
-                primaryText='Технополис "ЭРА"'
+                primaryText={<Typography className={classes.menuItem} variant="body1" component="pre">Технополис "ЭРА"</Typography>}
                 leftIcon={<StarIcon />}
                 onClick={onMenuClick}
                 sidebarIsOpen={open}
@@ -23,8 +32,8 @@ const Menu = ({ onMenuClick, logout }) => {
                     key={resource.name}
                     to={`/${resource.name}`}
                     primaryText={
-                        (resource.options && resource.options.label) ||
-                        resource.name
+                        <Typography className={classes.menuItem} variant="body1" component="pre">{(resource.options && resource.options.label)}</Typography> ||
+                        <Typography className={classes.menuItem} variant="body1" component="pre">{resource.name}</Typography>
                     }
                     leftIcon={
                         resource.icon ? <resource.icon /> : <DefaultIcon />

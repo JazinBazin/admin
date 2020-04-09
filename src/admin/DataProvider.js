@@ -9,7 +9,8 @@ const dataProvider = {
         if (
             resource == 'articles' ||
             resource == 'programms' ||
-            resource == 'research') {
+            resource == 'research' ||
+            resource == 'rationalization') {
             const formData = new FormData();
             for (const key in params.data) {
                 if (key == 'creationDate') {
@@ -37,7 +38,8 @@ const dataProvider = {
         if (
             resource == 'articles' ||
             resource == 'programms' ||
-            resource == 'research') {
+            resource == 'research' ||
+            resource == 'rationalization') {
             const formData = new FormData();
             for (const key in params.data) {
                 if (key == 'creationDate') {

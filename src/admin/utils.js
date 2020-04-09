@@ -8,7 +8,7 @@ import { Box, Typography } from "@material-ui/core";
 
 export function createTitle(title, recordName) {
     return ({ record }) => {
-        return <span>{` ${title}: "${record[recordName]}"`}</span>;
+        return <span>{` ${title}: ${record[recordName]}`}</span>;
     };
 }
 

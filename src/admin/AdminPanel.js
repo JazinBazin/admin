@@ -24,6 +24,13 @@ import {
 } from './resources/research';
 
 import {
+    ListForm as RationalizationList,
+    EditForm as RationalizationEdit,
+    CreateForm as RationalizationCreate,
+    ShowForm as RationalizationShow,
+} from './resources/rationalization'
+
+import {
     ListForm as PublicationList,
     EditForm as PublicationEdit,
     CreateForm as PublicationCreate,
@@ -43,6 +50,7 @@ import MyLayout from "./MyLayout";
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import GroupIcon from '@material-ui/icons/Group';
 
@@ -100,6 +108,14 @@ const AdminPanel = () => (
                 edit={ResearchEdit}
                 create={ResearchCreate}
                 show={ResearchShow} />
+            <Resource
+                name="rationalization"
+                icon={EmojiObjectsIcon}
+                options={{ label: 'Рационализаторские\nпредложения' }}
+                list={RationalizationList}
+                edit={RationalizationEdit}
+                create={RationalizationCreate}
+                show={RationalizationShow} />
             <Resource
                 name="publication"
                 icon={VisibilityIcon}
