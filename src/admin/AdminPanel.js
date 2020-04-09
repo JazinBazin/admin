@@ -55,6 +55,16 @@ import DateFnsUtils from '@date-io/date-fns';
 import ru from 'date-fns/locale/ru';
 import format from "date-fns/format";
 
+import { Layout } from 'react-admin';
+import Menu from "./menu";
+
+const MyLayout = (props) => (
+    <Layout
+        {...props}
+        menu={Menu}
+    />);
+
+
 class RuLocalizedUtils extends DateFnsUtils {
     getCalendarHeaderText(date) {
         return format(date, 'LLLL', { locale: this.locale });
@@ -70,6 +80,7 @@ const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
 const AdminPanel = () => (
     <MuiPickersUtilsProvider utils={RuLocalizedUtils} locale={ru}>
         <Admin
+            layout={MyLayout}
             title={<span>Технополис "ЭРА"</span>}
             dashboard={DashBoard}
             i18nProvider={i18nProvider}

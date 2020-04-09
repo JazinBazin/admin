@@ -26,10 +26,10 @@ export default () => {
             {/* <Title title="Военный инновационный технополис ЭРА" /> */}
             <CardHeader className={classes.header} title="Военный инновационный технополис ЭРА" />
             <CardMedia >
-                <img className={classes.media} src={"static/3.jpg"} />
+                <img className={classes.media} src={"static/dashboard2.jpg"} />
             </CardMedia>
             <CardContent>
-                <Typography variant="body2" component="p">
+                <Typography variant="h6" component="p">
                     Цель создания Военного инновационного технополиса ЭРА — обеспечить поиск, развитие и внедрение прорывных технологий в оборонной сфере.
                     Пристальное внимание уделено образовательным программам для молодых ученых в рядах Российской Армии.
                     Расположение Технополиса на морском побережье создает комфортные условия для работы и жизни.
