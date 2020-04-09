@@ -16,6 +16,10 @@ const useStyles = makeStyles({
     },
     header: {
         textAlign: "center"
+    },
+    bodyText: {
+        fontSize: "1.2em",
+        textAlign: "justify"
     }
 });
 
@@ -29,7 +33,7 @@ export default () => {
                 <img className={classes.media} src={"static/dashboard2.jpg"} />
             </CardMedia>
             <CardContent>
-                <Typography variant="h6" component="p">
+                <Typography className={classes.bodyText} component="p">
                     Цель создания Военного инновационного технополиса ЭРА — обеспечить поиск, развитие и внедрение прорывных технологий в оборонной сфере.
                     Пристальное внимание уделено образовательным программам для молодых ученых в рядах Российской Армии.
                     Расположение Технополиса на морском побережье создает комфортные условия для работы и жизни.

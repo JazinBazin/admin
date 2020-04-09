@@ -38,6 +38,7 @@ import {
 } from './resources/departments';
 
 import DashBoard from './DashBoard';
+import MyLayout from "./MyLayout";
 
 import CodeIcon from '@material-ui/icons/Code';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
@@ -54,16 +55,6 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import ru from 'date-fns/locale/ru';
 import format from "date-fns/format";
-
-import { Layout } from 'react-admin';
-import Menu from "./menu";
-
-const MyLayout = (props) => (
-    <Layout
-        {...props}
-        menu={Menu}
-    />);
-
 
 class RuLocalizedUtils extends DateFnsUtils {
     getCalendarHeaderText(date) {
