@@ -7,11 +7,6 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-    rating: {
-        type: Number,
-        min: 1,
-        required: true,
-    },
     firstCreationDate: {
         type: Date,
         required: true
@@ -25,7 +20,6 @@ function extractDataToSend(data) {
     return {
         id: data.id,
         name: data.name,
-        rating: data.rating,
         firstCreationDate: data.firstCreationDate,
     }
 }
@@ -33,7 +27,6 @@ function extractDataToSend(data) {
 function extractDataFromRequest(req) {
     return {
         "name": req.body.name,
-        "rating": req.body.rating
     }
 }
 

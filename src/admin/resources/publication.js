@@ -4,7 +4,7 @@ import {
     List, Datagrid, TextField,
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
-    Filter, required, minLength, minValue,
+    Filter, required, minLength,
     NumberField, NumberInput,
 } from 'react-admin';
 
@@ -14,7 +14,6 @@ import {
 } from "../utils";
 
 const validateName = [required(), minLength(1)];
-const validateRating = [required(), minValue(1)];
 
 const Title = createTitle("Место публикации", "name");
 const Empty = createEmptyPage("Нет доступных мест публикации",
@@ -46,9 +45,6 @@ export const ListForm = props => (
             <TextField
                 label="Место публикации"
                 source="name" />
-            <NumberField
-                label="Рейтинг"
-                source="rating" />
         </Datagrid>
     </List>
 );
@@ -67,11 +63,6 @@ export const CreateForm = props => (
                 label="Место публикации"
                 source="name"
                 validate={validateName} />
-            <NumberInput
-                fullWidth
-                label="Рейтинг"
-                source="rating"
-                validate={validateRating} />
         </SimpleForm>
     </Create>
 );
@@ -90,11 +81,6 @@ export const EditForm = props => (
                 label="Место публикации"
                 source="name"
                 validate={validateName} />
-            <NumberInput
-                fullWidth
-                label="Рейтинг"
-                source="rating"
-                validate={validateRating} />
         </SimpleForm>
     </Edit>
 );
@@ -110,9 +96,6 @@ export const ShowForm = ({ enableActions, ...props }) => {
                 <TextField
                     label="Место публикации"
                     source="name" />
-                <NumberField
-                    label="Рейтинг"
-                    source="rating" />
             </SimpleShowLayout>
         </Show>
     );
