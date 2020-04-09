@@ -55,6 +55,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import GroupIcon from '@material-ui/icons/Group';
 
 import dataProvider from './DataProvider';
+import authProvider from "./AuthProvider";
 
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import russianMessages from './locale';
@@ -83,7 +84,8 @@ const AdminPanel = () => (
             title={<span>Технополис "ЭРА"</span>}
             dashboard={DashBoard}
             i18nProvider={i18nProvider}
-            dataProvider={dataProvider}>
+            dataProvider={dataProvider}
+            authProvider={authProvider}>
             <Resource
                 name="articles"
                 icon={TextFieldsIcon}
