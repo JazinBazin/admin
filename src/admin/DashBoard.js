@@ -30,7 +30,7 @@ export default () => {
             {/* <Title title="Военный инновационный технополис ЭРА" /> */}
             <CardHeader className={classes.header} title="Военный инновационный технополис ЭРА" />
             <CardMedia >
-                <img className={classes.media} src={"static/dashboard2.jpg"} />
+                <img className={classes.media} src={"static/dashboard3.jpg"} />
             </CardMedia>
             <CardContent>
                 <Typography className={classes.bodyText} component="p">
