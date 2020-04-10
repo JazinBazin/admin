@@ -32,7 +32,8 @@ function listParamsMiddleware(req, res, next) {
         else if (
             key == "rota" ||
             key == "publicationPlace" ||
-            key == "department") {
+            key == "department" ||
+            key == "isAdmin") {
             result[key] = {
                 "$eq": filters[key]
             }
@@ -54,6 +55,10 @@ function listParamsMiddleware(req, res, next) {
 
     next();
 }
+
+/*
+extractDataFromRequest: -firstCreationDate, -file
+*/
 
 function createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest) {
     // create

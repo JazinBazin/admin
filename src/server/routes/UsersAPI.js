@@ -3,9 +3,17 @@ const Schema = mongoose.Schema;
 const createAPI = require("../utils").createAPI;
 
 const schema = new Schema({
-    name: {
+    login: {
         type: String,
         required: true,
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     firstCreationDate: {
         type: Date,
@@ -14,23 +22,27 @@ const schema = new Schema({
 },
     { versionKey: false });
 
-const Model = mongoose.model('Department', schema);
+const Model = mongoose.model('User', schema);
 
 function extractDataToSend(data) {
     return {
         id: data.id,
-        name: data.name,
+        login: data.login,
+        password: data.password,
+        isAdmin: data.isAdmin,
         firstCreationDate: data.firstCreationDate,
     }
 }
 
 function extractDataFromRequest(req) {
     return {
-        "name": req.body.name,
+        "login": req.body.login,
+        "password": req.body.password,
+        "isAdmin": req.body.isAdmin,
     }
 }
 
-const resource = "departments";
+const resource = "users";
 
 module.exports = function (app) {
     createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest);

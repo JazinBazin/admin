@@ -5,7 +5,6 @@ import {
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, required, minLength,
-    NumberField, NumberInput,
 } from 'react-admin';
 
 import {

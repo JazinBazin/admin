@@ -44,6 +44,13 @@ import {
     ShowForm as DepartmentShow,
 } from './resources/departments';
 
+import {
+    ListForm as UserList,
+    EditForm as UserEdit,
+    CreateForm as UserCreate,
+    ShowForm as UserShow,
+} from './resources/users';
+
 import DashBoard from './DashBoard';
 import MyLayout from "./MyLayout";
 
@@ -52,6 +59,8 @@ import TextFieldsIcon from '@material-ui/icons/TextFields';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import PieChartIcon from '@material-ui/icons/PieChart';
 import GroupIcon from '@material-ui/icons/Group';
 
 import dataProvider from './DataProvider';
@@ -128,12 +137,20 @@ const AdminPanel = () => (
                 show={PublicationShow} />
             <Resource
                 name="departments"
-                icon={GroupIcon}
+                icon={PieChartIcon}
                 options={{ label: 'Отделы' }}
                 list={DepartmentList}
                 edit={DepartmentEdit}
                 create={DepartmentCreate}
                 show={DepartmentShow} />
+            <Resource
+                name="users"
+                icon={GroupIcon}
+                options={{ label: 'Пользователи' }}
+                list={UserList}
+                edit={UserEdit}
+                create={UserCreate}
+                show={UserShow} />
         </Admin>
     </MuiPickersUtilsProvider>
 );
