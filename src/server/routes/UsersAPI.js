@@ -22,7 +22,7 @@ const schema = new Schema({
 },
     { versionKey: false });
 
-const Model = mongoose.model('User', schema);
+const User = mongoose.model('User', schema);
 
 function extractDataToSend(data) {
     return {
@@ -45,5 +45,10 @@ function extractDataFromRequest(req) {
 const resource = "users";
 
 module.exports = function (app) {
-    createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest);
+    app.post("/api/login", jsonParser, (req, res) => {
+        const { login, password } = req.body;
+        User.findOne
+    });
+
+    createAPI(app, resource, User, extractDataToSend, extractDataFromRequest);
 }
