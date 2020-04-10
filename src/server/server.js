@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const appRoot = require('app-root-path');
 const express = require("express");
 const app = express();
+const config = require("./config");
 
 require('./routes/ArticleAPI')(app);
 require('./routes/ProgrammAPI')(app);
@@ -10,7 +11,7 @@ require('./routes/ResearchAPI')(app);
 require('./routes/RationalizationAPI')(app);
 require('./routes/PublicationAPI')(app);
 require('./routes/DepartmentAPI')(app);
-require('./routes/UsersAPI')(app);
+require('./routes/UserAPI')(app);
 
 app.use(function (req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -30,7 +31,7 @@ app.get("/*", (req, res) => {
 });
 
 mongoose.connect(
-    "mongodb://localhost:27017/era",
+    `mongodb://${config.ip}:${config.port}/${config.databaseName}`,
     {
         useNewUrlParser: true,
         useCreateIndex: true,
