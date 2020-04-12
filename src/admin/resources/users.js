@@ -30,22 +30,6 @@ const validateLoginExistsOnCreate = (values) => {
         .catch(() => ({ login: "Internal error, please try again" }));
 }
 
-const validateLoginExistsOnEdit = (values) => {
-    return fetch("/api/users/unique", {
-        method: "POST",
-        body: JSON.stringify({ login: values.login }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(data => data.json())
-        .then(data => {
-            if (data.exists) return { login: "Логин занят" }
-            else return undefined;
-        })
-        .catch(() => ({ login: "Internal error, please try again" }));
-}
-
 const validateLogin = [required(), minLength(1)];
 const validatePassword = [required(), minLength(8)];
 
