@@ -14,6 +14,38 @@ import {
     getShowActions, getEditActions
 } from "../utils";
 
+const validateLoginExistsOnCreate = (values) => {
+    return fetch("/api/users/unique", {
+        method: "POST",
+        body: JSON.stringify({ login: values.login }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(data => data.json())
+        .then(data => {
+            if (data.exists) return { login: "Логин занят" }
+            else return undefined;
+        })
+        .catch(() => ({ login: "Internal error, please try again" }));
+}
+
+const validateLoginExistsOnEdit = (values) => {
+    return fetch("/api/users/unique", {
+        method: "POST",
+        body: JSON.stringify({ login: values.login }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(data => data.json())
+        .then(data => {
+            if (data.exists) return { login: "Логин занят" }
+            else return undefined;
+        })
+        .catch(() => ({ login: "Internal error, please try again" }));
+}
+
 const validateLogin = [required(), minLength(1)];
 const validatePassword = [required(), minLength(8)];
 
@@ -68,6 +100,7 @@ export const CreateForm = props => (
         undoable={false}
         {...props}>
         <SimpleForm
+            validate={validateLoginExistsOnCreate}
             redirect="list"
             submitOnEnter={false}>
             <TextInput
@@ -96,11 +129,10 @@ export const EditForm = props => (
         {...props}>
         <SimpleForm
             submitOnEnter={false}>
-            <TextInput
+            <TextField
                 fullWidth
                 label="Логин"
-                source="login"
-                validate={validateLogin} />
+                source="login" />
             <TextInput
                 fullWidth
                 label="Пароль"
