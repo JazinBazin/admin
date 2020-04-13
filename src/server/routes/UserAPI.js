@@ -5,6 +5,7 @@ const jsonWebToken = require("jsonwebtoken");
 const cookieParser = require('cookie-parser')();
 const config = require("../../config");
 const listParamsMiddleware = require("../utils").listParamsMiddleware;
+const auth = require("../auth").auth;
 
 const schema = new Schema({
     login: {
@@ -51,6 +52,7 @@ const resource = "users";
 
 module.exports = function (app) {
 
+    // login
     app.post("/api/login", jsonParser, (req, res) => {
         const { login, password } = req.body;
         User.findOne({ login })
@@ -76,38 +78,15 @@ module.exports = function (app) {
             }));
     });
 
+    // logout
     app.get("/api/logout", (req, res) => {
         res.clearCookie('token').sendStatus(200);
     });
 
-    const auth = (req, res, next) => {
-        const token = req.cookies.token;
-        if (!token) {
-            res.status(401).json({
-                error: "Unauthorized: no token provided"
-            });
-        }
-        else {
-            jsonWebToken.verify(token, config.secretKey, (error, decoded) => {
-                if (error) {
-                    res.status(401).json({
-                        error: "Unauthorized: invalid token"
-                    });
-                }
-                else {
-                    req.login = decoded.login;
-                    req.isAdmin = decoded.isAdmin;
-                    next();
-                }
-            });
-        }
-    }
-
+    // authenticate
     app.get("/api/authenticate", cookieParser, auth, (req, res) => {
         res.sendStatus(200);
     });
-
-    /*-------------------------------------------------------------------------------*/
 
     // is login exists
     app.post(`/api/${resource}/unique`, jsonParser, (req, res) => {
