@@ -5,6 +5,8 @@ const multer = require('multer')
 const upload = multer();
 const appRoot = require('app-root-path');
 const shortid = require('shortid');
+const cookieParser = require('cookie-parser')();
+const auth = require("./auth").auth;
 
 function listParamsMiddleware(req, res, next) {
     const sort = JSON.parse(req.query.sort);
@@ -62,7 +64,7 @@ extractDataFromRequest: -firstCreationDate, -file
 
 function createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest) {
     // create
-    app.post(`/api/${resource}`, jsonParser, (req, res) => {
+    app.post(`/api/${resource}`, cookieParser, auth, jsonParser, (req, res) => {
         let data = extractDataFromRequest(req);
         data["firstCreationDate"] = new Date();
         const modelRecord = new Model(data);
@@ -72,7 +74,7 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
     });
 
     // update
-    app.put(`/api/${resource}/:id`, jsonParser, (req, res) => {
+    app.put(`/api/${resource}/:id`, cookieParser, auth, jsonParser, (req, res) => {
         Model.findByIdAndUpdate(
             req.params.id,
             extractDataFromRequest(req),
@@ -82,14 +84,14 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
     });
 
     // delete
-    app.delete(`/api/${resource}/:id`, (req, res) => {
+    app.delete(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
         Model.findByIdAndDelete({ _id: req.params.id })
             .then(data => res.json(extractDataToSend(data)))
             .catch(error => console.log(error));
     });
 
     // getList
-    app.get(`/api/${resource}`, listParamsMiddleware, (req, res) => {
+    app.get(`/api/${resource}`, cookieParser, auth, listParamsMiddleware, (req, res) => {
         const { sortField, sortOrder, rangeStart, rangeEnd, filter } = req.listParams;
         Model.find(filter)
             .sort({ [sortField]: sortOrder })
@@ -102,14 +104,14 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
     });
 
     // getOne
-    app.get(`/api/${resource}/:id`, (req, res) => {
+    app.get(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
         Model.findOne({ _id: req.params.id })
             .then(data => res.json(extractDataToSend(data)))
             .catch(error => console.log(error));
     });
 
     // getMany
-    app.post(`/api/${resource}/many`, upload.array('ids'), (req, res) => {
+    app.post(`/api/${resource}/many`, cookieParser, auth, upload.array('ids'), (req, res) => {
         Model.find().where("_id").in(JSON.parse(req.body.ids)).exec((error, records) => {
             if (error) console.log(error);
             else {
@@ -145,7 +147,7 @@ function createAPIwithFile(app, resource, mimeTypes,
     });
 
     // create
-    app.post(`/api/${resource}`, formData.single("file"), (req, res) => {
+    app.post(`/api/${resource}`, cookieParser, auth, formData.single("file"), (req, res) => {
         const data = extractDataFromRequest(req);
         data["firstCreationDate"] = new Date();
         data["file"] = path.join(filesFolder, req.file.filename);
@@ -156,7 +158,7 @@ function createAPIwithFile(app, resource, mimeTypes,
     });
 
     // update
-    app.put(`/api/${resource}/:id`, formData.single("newfile"), (req, res) => {
+    app.put(`/api/${resource}/:id`, cookieParser, auth, formData.single("newfile"), (req, res) => {
         const data = extractDataFromRequest(req);
         if (req.file) {
             data["file"] = path.join(filesFolder, req.file.filename);
@@ -177,7 +179,7 @@ function createAPIwithFile(app, resource, mimeTypes,
     });
 
     // delete
-    app.delete(`/api/${resource}/:id`, (req, res) => {
+    app.delete(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
         Model.findByIdAndDelete({ _id: req.params.id })
             .then(data => {
                 const filePath = path.join(appRoot.path, data.file);
@@ -190,7 +192,7 @@ function createAPIwithFile(app, resource, mimeTypes,
     });
 
     // getList
-    app.get(`/api/${resource}`, listParamsMiddleware, (req, res) => {
+    app.get(`/api/${resource}`, cookieParser, auth, listParamsMiddleware, (req, res) => {
         const { sortField, sortOrder, rangeStart, rangeEnd, filter } = req.listParams;
         Model.find(filter)
             .sort({ [sortField]: sortOrder })
@@ -203,7 +205,7 @@ function createAPIwithFile(app, resource, mimeTypes,
     });
 
     // getOne
-    app.get(`/api/${resource}/:id`, (req, res) => {
+    app.get(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
         Model.findOne({ _id: req.params.id })
             .then(data => res.json(extractDataToSend(data)))
             .catch(error => console.log(error));

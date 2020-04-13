@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const jsonParser = require("express").json();
-const jsonWebToken = require("jsonwebtoken");
-const cookieParser = require('cookie-parser')();
 const config = require("../../config");
 const listParamsMiddleware = require("../utils").listParamsMiddleware;
+const jsonWebToken = require("jsonwebtoken");
+const cookieParser = require('cookie-parser')();
 const auth = require("../auth").auth;
 
 const schema = new Schema({
@@ -88,8 +88,8 @@ module.exports = function (app) {
         res.sendStatus(200);
     });
 
-    // is login exists
-    app.post(`/api/${resource}/unique`, jsonParser, (req, res) => {
+    // login existence
+    app.post(`/api/${resource}/unique`, cookieParser, auth, jsonParser, (req, res) => {
         let data = extractDataFromRequest(req);
         User.findOne({ login: data.login })
             .then(user => {
@@ -102,7 +102,7 @@ module.exports = function (app) {
     });
 
     // create
-    app.post(`/api/${resource}`, jsonParser, (req, res) => {
+    app.post(`/api/${resource}`, cookieParser, auth, jsonParser, (req, res) => {
         let data = extractDataFromRequest(req);
         User.findOne({ login: data.login })
             .then(user => {
@@ -123,7 +123,7 @@ module.exports = function (app) {
     });
 
     // update
-    app.put(`/api/${resource}/:id`, jsonParser, (req, res) => {
+    app.put(`/api/${resource}/:id`, cookieParser, auth, jsonParser, (req, res) => {
         User.findById(req.params.id)
             .then(user => {
                 const data = extractDataFromRequest(req);
@@ -145,14 +145,14 @@ module.exports = function (app) {
     });
 
     // delete
-    app.delete(`/api/${resource}/:id`, (req, res) => {
+    app.delete(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
         User.findByIdAndDelete({ _id: req.params.id })
             .then(data => res.json(extractDataToSend(data)))
             .catch(error => console.log(error));
     });
 
     // getList
-    app.get(`/api/${resource}`, listParamsMiddleware, (req, res) => {
+    app.get(`/api/${resource}`, cookieParser, auth, listParamsMiddleware, (req, res) => {
         const { sortField, sortOrder, rangeStart, rangeEnd, filter } = req.listParams;
         User.find(filter)
             .sort({ [sortField]: sortOrder })
@@ -165,7 +165,7 @@ module.exports = function (app) {
     });
 
     // getOne
-    app.get(`/api/${resource}/:id`, (req, res) => {
+    app.get(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
         User.findOne({ _id: req.params.id })
             .then(data => res.json(extractDataToSend(data)))
             .catch(error => console.log(error));
