@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const appRoot = require('app-root-path');
 const express = require("express");
 const app = express();
-const config = require("./config");
+const config = require("../config");
 
 require('./routes/ArticleAPI')(app);
 require('./routes/ProgrammAPI')(app);

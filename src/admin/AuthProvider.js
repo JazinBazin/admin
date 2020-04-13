@@ -1,31 +1,43 @@
 
 const authProvider = {
-    login: ({ username }) => {
-        localStorage.setItem('username', username);
-        // accept all username/password combinations
-        return Promise.resolve();
+
+    login: ({ username, password }) => {
+        return fetch("/api/login", {
+            method: "POST",
+            body: JSON.stringify({ login: username, password }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(response => {
+                if (response.status == 200) return Promise.resolve();
+                else return Promise.reject();
+            })
+            .catch(() => Promise.reject());
     },
-    // called when the user clicks on the logout button
+
     logout: () => {
-        localStorage.removeItem('username');
-        return Promise.resolve();
+        return fetch("/api/logout")
+            .then(response => {
+                if (response.status == 200) return Promise.resolve();
+                else return Promise.reject();
+            })
+            .catch(() => Promise.reject());
     },
-    // called when the API returns an error
-    checkError: ({ status }) => {
-        if (status === 401 || status === 403) {
-            localStorage.removeItem('username');
-            return Promise.reject();
-        }
-        return Promise.resolve();
-    },
-    // called when the user navigates to a new location, to check for authentication
+
     checkAuth: () => {
-        return localStorage.getItem('username')
-            ? Promise.resolve()
-            : Promise.reject();
+        return fetch("/api/authenticate")
+            .then(response => {
+                if (response.status == 200) return Promise.resolve();
+                else return Promise.reject();
+            })
+            .catch(() => Promise.reject());
     },
+
     // called when the user navigates to a new location, to check for permissions / roles
     getPermissions: () => Promise.resolve(),
+
+    checkError: ({ status }) => {
+        alert("Internal error, please try again");
+    },
 };
 
 export default authProvider;

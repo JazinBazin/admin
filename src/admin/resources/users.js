@@ -18,9 +18,7 @@ const validateLoginExistsOnCreate = (values) => {
     return fetch("/api/users/unique", {
         method: "POST",
         body: JSON.stringify({ login: values.login }),
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: { "Content-Type": "application/json" }
     })
         .then(data => data.json())
         .then(data => {

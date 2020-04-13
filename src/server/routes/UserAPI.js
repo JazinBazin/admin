@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const jsonParser = require("express").json();
 const jsonWebToken = require("jsonwebtoken");
 const cookieParser = require('cookie-parser')();
-const config = require("../config");
+const config = require("../../config");
 const listParamsMiddleware = require("../utils").listParamsMiddleware;
 
 const schema = new Schema({
@@ -51,6 +51,35 @@ const resource = "users";
 
 module.exports = function (app) {
 
+    app.post("/api/login", jsonParser, (req, res) => {
+        const { login, password } = req.body;
+        User.findOne({ login })
+            .then(user => {
+                if (!user || user.password != password) {
+                    res.status(401).json({
+                        error: "Incorrect login or password"
+                    });
+                }
+                else {
+                    const payload = {
+                        login,
+                        isAdmin: user.isAdmin
+                    };
+                    const token = jsonWebToken.sign(payload, config.secretKey, {
+                        expiresIn: 31536000
+                    });
+                    res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+                }
+            })
+            .catch(() => res.status(500).json({
+                error: "Internal error, please try again"
+            }));
+    });
+
+    app.get("/api/logout", (req, res) => {
+        res.clearCookie('token').sendStatus(200);
+    });
+
     const auth = (req, res, next) => {
         const token = req.cookies.token;
         if (!token) {
@@ -78,31 +107,6 @@ module.exports = function (app) {
         res.sendStatus(200);
     });
 
-    app.post("/api/login", jsonParser, (req, res) => {
-        const { login, password } = req.body;
-        User.findOne({ login })
-            .then(user => {
-                if (!user || user.password != password) {
-                    res.status(401).json({
-                        error: "Incorrect login or password"
-                    });
-                }
-                else {
-                    const payload = {
-                        login,
-                        isAdmin: user.isAdmin
-                    };
-                    const token = jsonWebToken.sign(payload, config.secretKey, {
-                        expiresIn: '1h'
-                    });
-                    res.cookie("token", token, { httpOnly: true }).sendStatus(200);
-                }
-            })
-            .catch(() => res.status(500).json({
-                error: "Internal error, please try again"
-            }));
-    });
-
     /*-------------------------------------------------------------------------------*/
 
     // is login exists
@@ -116,7 +120,7 @@ module.exports = function (app) {
             .catch(() => res.status(500).json({
                 error: "Internal error, please try again"
             }));
-    })
+    });
 
     // create
     app.post(`/api/${resource}`, jsonParser, (req, res) => {
