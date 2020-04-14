@@ -35,7 +35,7 @@ const Title = createTitle("Пользователи", "login");
 const Empty = createEmptyPage("Нет зарегистрированных пользователей",
     'Для добавления пользователя нажмите кнопку "Создать"')
 const ShowActions = getShowActions();
-const EditActions = getEditActions();
+// const EditActions = getEditActions();
 
 const Filters = (props) => (
     <Filter {...props}>
@@ -60,14 +60,14 @@ export const ListForm = props => (
         empty={<Empty />}
         {...props}>
         <Datagrid
-            rowClick="edit"
+            rowClick="show"
             expand={<ShowForm enableActions={false} />}>
             <TextField
                 label="Логин"
                 source="login" />
-            <TextField
+            {/* <TextField
                 label="Пароль"
-                source="password" />
+                source="password" /> */}
             <BooleanField
                 label="Администратор"
                 source="isAdmin" />
@@ -102,30 +102,30 @@ export const CreateForm = props => (
     </Create>
 );
 
-export const EditForm = props => (
-    <Edit
-        title={<Title />}
-        successMessage="Пользователь обновлён"
-        undoable={false}
-        actions={<EditActions />}
-        {...props}>
-        <SimpleForm
-            submitOnEnter={false}>
-            <TextField
-                fullWidth
-                label="Логин"
-                source="login" />
-            <TextInput
-                fullWidth
-                label="Пароль"
-                source="password"
-                validate={validatePassword} />
-            <BooleanInput
-                label="Администратор"
-                source="isAdmin" />
-        </SimpleForm>
-    </Edit>
-);
+// export const EditForm = props => (
+//     <Edit
+//         title={<Title />}
+//         successMessage="Пользователь обновлён"
+//         undoable={false}
+//         actions={<EditActions />}
+//         {...props}>
+//         <SimpleForm
+//             submitOnEnter={false}>
+//             <TextField
+//                 fullWidth
+//                 label="Логин"
+//                 source="login" />
+//             <TextInput
+//                 fullWidth
+//                 label="Пароль"
+//                 source="password"
+//                 validate={validatePassword} />
+//             <BooleanInput
+//                 label="Администратор"
+//                 source="isAdmin" />
+//         </SimpleForm>
+//     </Edit>
+// );
 
 export const ShowForm = ({ enableActions, ...props }) => {
     const actions = enableActions ? <ShowActions /> : false;
@@ -138,9 +138,9 @@ export const ShowForm = ({ enableActions, ...props }) => {
                 <TextField
                     label="Логин"
                     source="login" />
-                <TextField
+                {/* <TextField
                     label="Пароль"
-                    source="password" />
+                    source="password" /> */}
                 <BooleanField
                     label="Администратор"
                     source="isAdmin" />

@@ -2,7 +2,7 @@ module.exports = {
     databaseName: "era",
     ip: "localhost",
     port: 27017,
-    secretKey: "mysecterkey",
+    secretKey: "mysecretkey",
     mongodbConfig: {
         useNewUrlParser: true,
         useCreateIndex: true,

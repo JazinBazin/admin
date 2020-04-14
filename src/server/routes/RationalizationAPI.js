@@ -1,46 +1,9 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const schema = require('../schemas').rationalizationSchema;
 const createAPIwithFile = require("../utils").createAPIwithFile;
 
-const schema = new Schema(
-    {
-        headline: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        },
-        creationDate: {
-            type: Date,
-            required: true
-        },
-        firstCreationDate: {
-            type: Date,
-            required: true
-        },
-        rota: {
-            type: Number,
-            required: false,
-            min: 1
-        },
-        department: {
-            type: Schema.Types.ObjectId,
-            ref: "Department"
-        },
-        authors: [{ author: String }],
-        file: {
-            type: String,
-            required: true
-        }
-    },
-    { versionKey: false });
-
 const Model = mongoose.model('Rationalization', schema);
-
 const resource = "rationalization";
-
 const mimeTypes = ["application/pdf",];
 
 function extractDataToSend(data) {

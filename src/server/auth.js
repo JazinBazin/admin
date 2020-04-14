@@ -1,8 +1,6 @@
 const jsonWebToken = require("jsonwebtoken");
 const config = require("../config");
 
-// админ - да нет
-
 exports.auth = (req, res, next) => {
     const token = req.cookies.token;
     if (!token) {

@@ -1,37 +1,12 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const schema = require('../schemas').userSchema;
 const jsonParser = require("express").json();
 const config = require("../../config");
 const listParamsMiddleware = require("../utils").listParamsMiddleware;
 const jsonWebToken = require("jsonwebtoken");
 const cookieParser = require('cookie-parser')();
 const auth = require("../auth").auth;
-
-/*
-Шифрование пароля
-Отображение пароля
-*/
-
-const schema = new Schema({
-    login: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
-    firstCreationDate: {
-        type: Date,
-        required: true
-    },
-},
-    { versionKey: false });
+const bcrypt = require('bcrypt');
 
 const User = mongoose.model('User', schema);
 
@@ -62,21 +37,28 @@ module.exports = function (app) {
         const { login, password } = req.body;
         User.findOne({ login })
             .then(user => {
-                if (!user || user.password != password) {
-                    res.status(401).json({
-                        error: "Incorrect login or password"
-                    });
+                if (!user) {
+                    res.status(401).json({ error: "Incorrect login or password" });
+                    return;
                 }
-                else {
-                    const payload = {
-                        login,
-                        isAdmin: user.isAdmin
-                    };
-                    const token = jsonWebToken.sign(payload, config.secretKey, {
-                        expiresIn: 31536000
-                    });
-                    res.cookie("token", token, { httpOnly: true }).sendStatus(200);
-                }
+                bcrypt.compare(password, user.password)
+                    .then(equal => {
+                        if (!equal) {
+                            res.status(401).json({ error: "Incorrect login or password" });
+                            return;
+                        }
+                        const payload = {
+                            login,
+                            isAdmin: user.isAdmin
+                        };
+                        const token = jsonWebToken.sign(payload, config.secretKey, {
+                            expiresIn: 31536000
+                        });
+                        res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+                    })
+                    .catch(() => res.status(500).json({
+                        error: "Internal error, please try again"
+                    }));
             })
             .catch(() => res.status(500).json({
                 error: "Internal error, please try again"
@@ -122,14 +104,20 @@ module.exports = function (app) {
                 .then(user => {
                     if (user) {
                         res.status(409).json({ error: "Login already exists" });
+                        return;
                     }
-                    else {
-                        data["firstCreationDate"] = new Date();
-                        const modelRecord = new User(data);
-                        modelRecord.save()
-                            .then(() => res.json(extractDataToSend(modelRecord)))
-                            .catch(error => console.log(error));
-                    }
+                    bcrypt.hash(data.password, config.saltRounds)
+                        .then(hash => {
+                            data.password = hash;
+                            data["firstCreationDate"] = new Date();
+                            const modelRecord = new User(data);
+                            modelRecord.save()
+                                .then(() => res.json(extractDataToSend(modelRecord)))
+                                .catch(error => console.log(error));
+                        })
+                        .catch(() => res.status(500).json({
+                            error: "Internal error, please try again"
+                        }));
                 })
                 .catch(() => res.status(500).json({
                     error: "Internal error, please try again"

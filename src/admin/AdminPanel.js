@@ -148,7 +148,7 @@ const AdminPanel = () => (
                     icon={GroupIcon}
                     options={{ label: 'Пользователи' }}
                     list={UserList}
-                    edit={UserEdit}
+                    // edit={UserEdit}
                     create={UserCreate}
                     show={UserShow} />,
             ]}
@@ -157,36 +157,3 @@ const AdminPanel = () => (
 );
 
 export default AdminPanel;
-
-/*
-permissions == true
-                    ? <Resource
-                        name="publication"
-                        icon={VisibilityIcon}
-                        options={{ label: 'Места публикации' }}
-                        list={PublicationList}
-                        edit={PublicationEdit}
-                        create={PublicationCreate}
-                        show={PublicationShow} />
-                    : null,
-                permissions == true
-                    ? <Resource
-                        name="departments"
-                        icon={PieChartIcon}
-                        options={{ label: 'Отделы' }}
-                        list={DepartmentList}
-                        edit={DepartmentEdit}
-                        create={DepartmentCreate}
-                        show={DepartmentShow} />
-                    : null,
-                permissions == true
-                    ? <Resource
-                        name="users"
-                        icon={GroupIcon}
-                        options={{ label: 'Пользователи' }}
-                        list={UserList}
-                        edit={UserEdit}
-                        create={UserCreate}
-                        show={UserShow} />
-                    : null,
-*/
