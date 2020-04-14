@@ -15,7 +15,8 @@ import {
 
 import {
     createTitle, createEmptyPage,
-    getShowActions, getEditActionsWithoutFile
+    getShowActions, getEditActionsWithoutFile,
+    getBulkActionButtons
 } from "../utils";
 
 import { HeadlineField, DescriptionField, RotaField } from '../CustomFields';
@@ -36,6 +37,7 @@ const Empty = createEmptyPage("Нет доступных научных рабо
     'Для добавления научной работы нажмите кнопку "Создать"')
 const ShowActions = getShowActions();
 const EditActions = getEditActionsWithoutFile();
+const BulkActionButtons = getBulkActionButtons();
 
 const Filters = (props) => (
     <Filter {...props}>
@@ -66,7 +68,7 @@ const Filters = (props) => (
     </Filter>
 );
 
-export const ListForm = props => (
+export const ListForm = ({ permissions, ...props }) => (
     <List
         title="Список научных работ"
         filters={<Filters />}
@@ -74,9 +76,10 @@ export const ListForm = props => (
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
         empty={<Empty />}
+        bulkActionButtons={<BulkActionButtons permissions={permissions} />}
         {...props}>
         <Datagrid
-            rowClick="edit"
+            rowClick={permissions ? "edit" : "show"}
             expand={<ShowForm enableActions={false} />}>>
             <HeadlineField
                 label="Название"
@@ -233,8 +236,8 @@ export const EditForm = props => (
     </Edit>
 );
 
-export const ShowForm = ({ enableActions, ...props }) => {
-    const actions = enableActions ? <ShowActions /> : false;
+export const ShowForm = ({ permissions, enableActions, ...props }) => {
+    const actions = enableActions ? <ShowActions permissions={permissions} /> : false;
     return (
         <Show
             title={<Title />}

@@ -3,6 +3,7 @@ import {
     TopToolbar, EditButton, ListButton,
     RefreshButton, CreateButton,
     ShowButton, CloneButton,
+    BulkDeleteButton
 } from 'react-admin';
 import { Box, Typography } from "@material-ui/core";
 
@@ -27,10 +28,10 @@ export function createEmptyPage(noPlacesMessage, addDataMessage) {
 }
 
 export function getShowActions() {
-    return ({ basePath, data, resource }) => (
+    return ({ permissions, basePath, data, resource }) => (
         <TopToolbar>
             <ListButton basePath={basePath} record={data} />
-            <EditButton basePath={basePath} record={data} />
+            {permissions && <EditButton basePath={basePath} record={data} />}
             <RefreshButton basePath={basePath} record={data} />
         </TopToolbar>
     );
@@ -61,5 +62,15 @@ export function getEditActionsWithoutFile() {
                 <RefreshButton basePath={basePath} record={data} />
             </TopToolbar>
         );
+    }
+}
+
+export function getBulkActionButtons() {
+    return ({ permissions, ...props }) => {
+        return (permissions
+            ? <React.Fragment>
+                <BulkDeleteButton {...props} />
+            </React.Fragment >
+            : null);
     }
 }

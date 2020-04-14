@@ -8,8 +8,9 @@ const authProvider = {
             headers: { "Content-Type": "application/json" }
         })
             .then(response => {
-                if (response.status == 200) return Promise.resolve();
-                else return Promise.reject();
+                return response.status == 200
+                    ? Promise.resolve()
+                    : Promise.reject();
             })
             .catch(() => Promise.reject());
     },
@@ -17,8 +18,9 @@ const authProvider = {
     logout: () => {
         return fetch("/api/logout")
             .then(response => {
-                if (response.status == 200) return Promise.resolve();
-                else return Promise.reject();
+                return response.status == 200
+                    ? Promise.resolve()
+                    : Promise.reject();
             })
             .catch(() => Promise.reject());
     },
@@ -26,17 +28,23 @@ const authProvider = {
     checkAuth: () => {
         return fetch("/api/authenticate")
             .then(response => {
-                if (response.status == 200) return Promise.resolve();
-                else return Promise.reject();
+                return response.status == 200
+                    ? Promise.resolve()
+                    : Promise.reject();
             })
             .catch(() => Promise.reject());
     },
 
-    // called when the user navigates to a new location, to check for permissions / roles
-    getPermissions: () => Promise.resolve(),
 
-    checkError: ({ status }) => {
-        alert("Internal error, please try again");
+    getPermissions: () => {
+        return fetch("/api/permissions")
+            .then(response => response.json())
+            .then(data => Promise.resolve(data.isAdmin))
+            .catch(() => Promise.reject());
+    },
+
+    checkError: (error) => {
+        alert(error);
     },
 };
 

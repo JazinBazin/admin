@@ -59,7 +59,6 @@ import TextFieldsIcon from '@material-ui/icons/TextFields';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import PieChartIcon from '@material-ui/icons/PieChart';
 import GroupIcon from '@material-ui/icons/Group';
 
@@ -95,64 +94,99 @@ const AdminPanel = () => (
             i18nProvider={i18nProvider}
             dataProvider={dataProvider}
             authProvider={authProvider}>
-            <Resource
-                name="articles"
-                icon={TextFieldsIcon}
-                options={{ label: 'Статьи' }}
-                list={ArticleList}
-                edit={ArticleEdit}
-                create={ArticleCreate}
-                show={ArticleShow} />
-            <Resource
-                name="programms"
-                icon={CodeIcon}
-                options={{ label: 'Программы' }}
-                list={ProgrammList}
-                edit={ProgrammEdit}
-                create={ProgrammCreate}
-                show={ProgrammShow} />
-            <Resource
-                name="research"
-                icon={MenuBookIcon}
-                options={{ label: 'Научные работы' }}
-                list={ResearchList}
-                edit={ResearchEdit}
-                create={ResearchCreate}
-                show={ResearchShow} />
-            <Resource
-                name="rationalization"
-                icon={EmojiObjectsIcon}
-                options={{ label: 'Рационализаторские\nпредложения' }}
-                list={RationalizationList}
-                edit={RationalizationEdit}
-                create={RationalizationCreate}
-                show={RationalizationShow} />
-            <Resource
-                name="publication"
-                icon={VisibilityIcon}
-                options={{ label: 'Места публикации' }}
-                list={PublicationList}
-                edit={PublicationEdit}
-                create={PublicationCreate}
-                show={PublicationShow} />
-            <Resource
-                name="departments"
-                icon={PieChartIcon}
-                options={{ label: 'Отделы' }}
-                list={DepartmentList}
-                edit={DepartmentEdit}
-                create={DepartmentCreate}
-                show={DepartmentShow} />
-            <Resource
-                name="users"
-                icon={GroupIcon}
-                options={{ label: 'Пользователи' }}
-                list={UserList}
-                edit={UserEdit}
-                create={UserCreate}
-                show={UserShow} />
+            {(permissions) => [
+                <Resource
+                    name="articles"
+                    icon={TextFieldsIcon}
+                    options={{ label: 'Статьи' }}
+                    list={ArticleList}
+                    edit={permissions ? ArticleEdit : null}
+                    create={permissions ? ArticleCreate : null}
+                    show={ArticleShow} />,
+                <Resource
+                    name="programms"
+                    icon={CodeIcon}
+                    options={{ label: 'Программы' }}
+                    list={ProgrammList}
+                    edit={permissions ? ProgrammEdit : null}
+                    create={permissions ? ProgrammCreate : null}
+                    show={ProgrammShow} />,
+                <Resource
+                    name="research"
+                    icon={MenuBookIcon}
+                    options={{ label: 'Научные работы' }}
+                    list={ResearchList}
+                    edit={permissions ? ResearchEdit : null}
+                    create={permissions ? ResearchCreate : null}
+                    show={ResearchShow} />,
+                <Resource
+                    name="rationalization"
+                    icon={EmojiObjectsIcon}
+                    options={{ label: 'Рационализаторские\nпредложения' }}
+                    list={RationalizationList}
+                    edit={permissions ? RationalizationEdit : null}
+                    create={permissions ? RationalizationCreate : null}
+                    show={RationalizationShow} />,
+                <Resource
+                    name="publication"
+                    icon={VisibilityIcon}
+                    options={{ label: 'Места публикации' }}
+                    list={PublicationList}
+                    edit={PublicationEdit}
+                    create={PublicationCreate}
+                    show={PublicationShow} />,
+                <Resource
+                    name="departments"
+                    icon={PieChartIcon}
+                    options={{ label: 'Отделы' }}
+                    list={DepartmentList}
+                    edit={DepartmentEdit}
+                    create={DepartmentCreate}
+                    show={DepartmentShow} />,
+                <Resource
+                    name="users"
+                    icon={GroupIcon}
+                    options={{ label: 'Пользователи' }}
+                    list={UserList}
+                    edit={UserEdit}
+                    create={UserCreate}
+                    show={UserShow} />,
+            ]}
         </Admin>
     </MuiPickersUtilsProvider>
 );
 
 export default AdminPanel;
+
+/*
+permissions == true
+                    ? <Resource
+                        name="publication"
+                        icon={VisibilityIcon}
+                        options={{ label: 'Места публикации' }}
+                        list={PublicationList}
+                        edit={PublicationEdit}
+                        create={PublicationCreate}
+                        show={PublicationShow} />
+                    : null,
+                permissions == true
+                    ? <Resource
+                        name="departments"
+                        icon={PieChartIcon}
+                        options={{ label: 'Отделы' }}
+                        list={DepartmentList}
+                        edit={DepartmentEdit}
+                        create={DepartmentCreate}
+                        show={DepartmentShow} />
+                    : null,
+                permissions == true
+                    ? <Resource
+                        name="users"
+                        icon={GroupIcon}
+                        options={{ label: 'Пользователи' }}
+                        list={UserList}
+                        edit={UserEdit}
+                        create={UserCreate}
+                        show={UserShow} />
+                    : null,
+*/

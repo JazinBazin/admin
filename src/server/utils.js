@@ -65,29 +65,38 @@ extractDataFromRequest: -firstCreationDate, -file
 function createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest) {
     // create
     app.post(`/api/${resource}`, cookieParser, auth, jsonParser, (req, res) => {
-        let data = extractDataFromRequest(req);
-        data["firstCreationDate"] = new Date();
-        const modelRecord = new Model(data);
-        modelRecord.save()
-            .then(() => res.json(extractDataToSend(modelRecord)))
-            .catch(error => console.log(error));
+        if (req.isAdmin) {
+            let data = extractDataFromRequest(req);
+            data["firstCreationDate"] = new Date();
+            const modelRecord = new Model(data);
+            modelRecord.save()
+                .then(() => res.json(extractDataToSend(modelRecord)))
+                .catch(error => console.log(error));
+        }
+        else res.status(401).json({ error: "Access denied" });
     });
 
     // update
     app.put(`/api/${resource}/:id`, cookieParser, auth, jsonParser, (req, res) => {
-        Model.findByIdAndUpdate(
-            req.params.id,
-            extractDataFromRequest(req),
-            { new: true })
-            .then(data => res.json(extractDataToSend(data)))
-            .catch(error => console.log(error));
+        if (req.isAdmin) {
+            Model.findByIdAndUpdate(
+                req.params.id,
+                extractDataFromRequest(req),
+                { new: true })
+                .then(data => res.json(extractDataToSend(data)))
+                .catch(error => console.log(error));
+        }
+        else res.status(401).json({ error: "Access denied" });
     });
 
     // delete
     app.delete(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
-        Model.findByIdAndDelete({ _id: req.params.id })
-            .then(data => res.json(extractDataToSend(data)))
-            .catch(error => console.log(error));
+        if (req.isAdmin) {
+            Model.findByIdAndDelete({ _id: req.params.id })
+                .then(data => res.json(extractDataToSend(data)))
+                .catch(error => console.log(error));
+        }
+        else res.status(401).json({ error: "Access denied" });
     });
 
     // getList
@@ -148,47 +157,56 @@ function createAPIwithFile(app, resource, mimeTypes,
 
     // create
     app.post(`/api/${resource}`, cookieParser, auth, formData.single("file"), (req, res) => {
-        const data = extractDataFromRequest(req);
-        data["firstCreationDate"] = new Date();
-        data["file"] = path.join(filesFolder, req.file.filename);
-        const modelRecord = new Model(data);
-        modelRecord.save()
-            .then(() => res.json(extractDataToSend(modelRecord)))
-            .catch(error => console.log(error));
+        if (req.isAdmin) {
+            const data = extractDataFromRequest(req);
+            data["firstCreationDate"] = new Date();
+            data["file"] = path.join(filesFolder, req.file.filename);
+            const modelRecord = new Model(data);
+            modelRecord.save()
+                .then(() => res.json(extractDataToSend(modelRecord)))
+                .catch(error => console.log(error));
+        }
+        else res.status(401).json({ error: "Access denied" });
     });
 
     // update
     app.put(`/api/${resource}/:id`, cookieParser, auth, formData.single("newfile"), (req, res) => {
-        const data = extractDataFromRequest(req);
-        if (req.file) {
-            data["file"] = path.join(filesFolder, req.file.filename);
-            const oldFilePath = path.join(appRoot.path, req.body.file);
-            fs.unlink(oldFilePath, error => {
-                if (error) console.log(error);
-            });
+        if (req.isAdmin) {
+            const data = extractDataFromRequest(req);
+            if (req.file) {
+                data["file"] = path.join(filesFolder, req.file.filename);
+                const oldFilePath = path.join(appRoot.path, req.body.file);
+                fs.unlink(oldFilePath, error => {
+                    if (error) console.log(error);
+                });
+            }
+            else {
+                data["file"] = req.body.file;
+            }
+            Model.findByIdAndUpdate(
+                req.params.id,
+                data,
+                { new: true })
+                .then(updatedData => res.json(extractDataToSend(updatedData)))
+                .catch(error => console.log(error));
         }
-        else {
-            data["file"] = req.body.file;
-        }
-        Model.findByIdAndUpdate(
-            req.params.id,
-            data,
-            { new: true })
-            .then(updatedData => res.json(extractDataToSend(updatedData)))
-            .catch(error => console.log(error));
+        else res.status(401).json({ error: "Access denied" });
     });
 
     // delete
     app.delete(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {
-        Model.findByIdAndDelete({ _id: req.params.id })
-            .then(data => {
-                const filePath = path.join(appRoot.path, data.file);
-                fs.unlink(filePath, error => {
-                    if (error) console.log(error);
-                });
-                res.json(extractDataToSend(data));
-            })
-            .catch(error => console.log(error));
+        if (req.isAdmin) {
+            Model.findByIdAndDelete({ _id: req.params.id })
+                .then(data => {
+                    const filePath = path.join(appRoot.path, data.file);
+                    fs.unlink(filePath, error => {
+                        if (error) console.log(error);
+                    });
+                    res.json(extractDataToSend(data));
+                })
+                .catch(error => console.log(error));
+        }
+        else res.status(401).json({ error: "Access denied" });
     });
 
     // getList

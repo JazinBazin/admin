@@ -9,7 +9,8 @@ import {
 
 import {
     createTitle, createEmptyPage,
-    getShowActions, getEditActions
+    getShowActions, getEditActions,
+    getBulkActionButtons
 } from "../utils";
 
 const validateName = [required(), minLength(1)];
@@ -19,6 +20,7 @@ const Empty = createEmptyPage("Нет доступных мест публика
     'Для добавления места публикации нажмите кнопку "Создать"')
 const ShowActions = getShowActions();
 const EditActions = getEditActions();
+const BulkActionButtons = getBulkActionButtons();
 
 const Filters = (props) => (
     <Filter {...props}>
@@ -29,7 +31,7 @@ const Filters = (props) => (
     </Filter>
 );
 
-export const ListForm = props => (
+export const ListForm = ({ permissions, ...props }) => (
     <List
         title="Список мест публикации"
         filters={<Filters />}
@@ -37,9 +39,10 @@ export const ListForm = props => (
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
         empty={<Empty />}
+        bulkActionButtons={<BulkActionButtons permissions={permissions} />}
         {...props}>
         <Datagrid
-            rowClick="edit"
+            rowClick={permissions ? "edit" : "show"}
             expand={<ShowForm enableActions={false} />}>
             <TextField
                 label="Место публикации"
@@ -84,8 +87,8 @@ export const EditForm = props => (
     </Edit>
 );
 
-export const ShowForm = ({ enableActions, ...props }) => {
-    const actions = enableActions ? <ShowActions /> : false;
+export const ShowForm = ({ permissions, enableActions, ...props }) => {
+    const actions = enableActions ? <ShowActions permissions={permissions} /> : false;
     return (
         <Show
             title={<Title />}
