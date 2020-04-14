@@ -32,12 +32,7 @@ app.get("/*", (req, res) => {
 
 mongoose.connect(
     `mongodb://${config.ip}:${config.port}/${config.databaseName}`,
-    {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false
-    })
+    config.mongodbConfig)
     .then(() => {
         app.listen(3000, () => {
             console.log("Server has started.");
