@@ -10,7 +10,6 @@ const auth = require("../auth").auth;
 /*
 Шифрование пароля
 Отображение пароля
-Кастомная страница входа
 */
 
 const schema = new Schema({
@@ -140,29 +139,29 @@ module.exports = function (app) {
     });
 
     // update
-    app.put(`/api/${resource}/:id`, cookieParser, auth, jsonParser, (req, res) => {
-        if (req.isAdmin) {
-            User.findById(req.params.id)
-                .then(user => {
-                    const data = extractDataFromRequest(req);
-                    if (user && user.login == data.login) {
-                        User.findByIdAndUpdate(
-                            req.params.id,
-                            data,
-                            { new: true })
-                            .then(data => res.json(extractDataToSend(data)))
-                            .catch(error => console.log(error));
-                    }
-                    else {
-                        res.status(409).json({ error: "user not exists" });
-                    }
-                })
-                .catch(() => res.status(500).json({
-                    error: "Internal error, please try again"
-                }));
-        }
-        else res.status(401).json({ error: "Access denied" });
-    });
+    // app.put(`/api/${resource}/:id`, cookieParser, auth, jsonParser, (req, res) => {
+    //     if (req.isAdmin) {
+    //         User.findById(req.params.id)
+    //             .then(user => {
+    //                 const data = extractDataFromRequest(req);
+    //                 if (user && user.login == data.login) {
+    //                     User.findByIdAndUpdate(
+    //                         req.params.id,
+    //                         data,
+    //                         { new: true })
+    //                         .then(data => res.json(extractDataToSend(data)))
+    //                         .catch(error => console.log(error));
+    //                 }
+    //                 else {
+    //                     res.status(409).json({ error: "user not exists" });
+    //                 }
+    //             })
+    //             .catch(() => res.status(500).json({
+    //                 error: "Internal error, please try again"
+    //             }));
+    //     }
+    //     else res.status(401).json({ error: "Access denied" });
+    // });
 
     // delete
     app.delete(`/api/${resource}/:id`, cookieParser, auth, (req, res) => {

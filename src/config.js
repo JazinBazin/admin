@@ -8,5 +8,6 @@ module.exports = {
         useCreateIndex: true,
         useUnifiedTopology: true,
         useFindAndModify: false
-    }
+    },
+    saltRounds: 10,
 }
