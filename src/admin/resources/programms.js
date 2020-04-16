@@ -101,7 +101,7 @@ export const ListForm = ({ permissions, ...props }) => (
             <ArrayField
                 source="authors"
                 label="Авторы">
-                <SingleFieldList link="">
+                <SingleFieldList linkType={false}>
                     <ChipField
                         label="Автор"
                         source="author" />
@@ -257,7 +257,7 @@ export const ShowForm = ({ permissions, enableActions, ...props }) => {
                 <ArrayField
                     label="Авторы"
                     source="authors">
-                    <SingleFieldList link="">
+                    <SingleFieldList linkType={false}>
                         <ChipField
                             label="Автор"
                             source="author" />

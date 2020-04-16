@@ -13,8 +13,8 @@ function extractDataToSend(data) {
         description: data.description,
         creationDate: data.creationDate,
         firstCreationDate: data.firstCreationDate,
-        rota: data.rota,
-        department: data.department,
+        rota: data.rota || undefined,
+        department: data.department || undefined,
         authors: data.authors,
         file: {
             url: data.file,

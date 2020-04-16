@@ -20,16 +20,18 @@ exports.articleSchema = new Schema({
     },
     publicationPlace: {
         type: Schema.Types.ObjectId,
-        ref: 'PublicationPlace'
+        required: false,
+        ref: 'PublicationPlace',
     },
     rota: {
         type: Number,
         required: false,
-        min: 1
+        min: 1,
     },
     department: {
         type: Schema.Types.ObjectId,
-        ref: "Department"
+        required: false,
+        ref: "Department",
     },
     authors: [{ author: String }],
     file: {
@@ -56,12 +58,10 @@ exports.programmSchema = new Schema(
         headline: {
             type: String,
             required: true,
-            maxlength: 100
         },
         description: {
             type: String,
             required: true,
-            maxlength: 5000
         },
         creationDate: {
             type: Date,
@@ -78,6 +78,7 @@ exports.programmSchema = new Schema(
         },
         department: {
             type: Schema.Types.ObjectId,
+            required: false,
             ref: "Department"
         },
         authors: [{ author: String }],
@@ -125,6 +126,7 @@ exports.rationalizationSchema = new Schema(
         },
         department: {
             type: Schema.Types.ObjectId,
+            required: false,
             ref: "Department"
         },
         authors: [{ author: String }],
@@ -160,6 +162,7 @@ exports.researchSchema = new Schema(
         },
         department: {
             type: Schema.Types.ObjectId,
+            required: false,
             ref: "Department"
         },
         authors: [{ author: String }],

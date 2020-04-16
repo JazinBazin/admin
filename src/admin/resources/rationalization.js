@@ -101,7 +101,7 @@ export const ListForm = ({ permissions, ...props }) => (
             <ArrayField
                 source="authors"
                 label="Авторы">
-                <SingleFieldList link="">
+                <SingleFieldList linkType={false}>
                     <ChipField
                         label="Автор"
                         source="author" />
@@ -163,8 +163,8 @@ export const CreateForm = props => (
             </ReferenceInput>
             <FileInput
                 source="file"
-                label="PDF файл"
-                accept="application/pdf"
+                label="Архив"
+                accept="application/x-rar-compressed, application/zip"
                 validate={validateFile}>
                 <FileField
                     source="file"
@@ -222,12 +222,12 @@ export const EditForm = props => (
             <FileField
                 source="file.url"
                 title="file.title"
-                label="PDF файл"
+                label="Архив"
                 target="_blank" />
             <FileInput
                 source="newfile"
                 label="Новый файл"
-                accept="application/pdf">
+                accept="application/x-rar-compressed, application/zip">
                 <FileField
                     source="src"
                     title="Загруженный файл" />
@@ -257,7 +257,7 @@ export const ShowForm = ({ permissions, enableActions, ...props }) => {
                 <ArrayField
                     label="Авторы"
                     source="authors">
-                    <SingleFieldList link="">
+                    <SingleFieldList linkType={false}>
                         <ChipField
                             label="Автор"
                             source="author" />
@@ -276,7 +276,7 @@ export const ShowForm = ({ permissions, enableActions, ...props }) => {
                 <FileField
                     source="file.url"
                     title="file.title"
-                    label="PDF файл"
+                    label="Архив"
                     target="_blank" />
             </SimpleShowLayout>
         </Show>

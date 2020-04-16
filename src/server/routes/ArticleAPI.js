@@ -13,9 +13,9 @@ function extractDataToSend(data) {
         text: data.text,
         creationDate: data.creationDate,
         firstCreationDate: data.firstCreationDate,
-        publicationPlace: data.publicationPlace,
-        rota: data.rota,
-        department: data.department,
+        publicationPlace: data.publicationPlace || undefined,
+        rota: data.rota || undefined,
+        department: data.department || undefined,
         authors: data.authors,
         file: {
             url: data.file,
