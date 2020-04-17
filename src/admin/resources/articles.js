@@ -71,6 +71,14 @@ const Filters = (props) => (
             label="Дата создания"
             source="creationDate"
             options={{ format: dateFormat, cancelLabel: cancelLabel }} />
+        <DateInput
+            label="Дата от"
+            source="dateFrom"
+            options={{ format: dateFormat, cancelLabel: cancelLabel }} />
+        <DateInput
+            label="Дата до"
+            source="dateTo"
+            options={{ format: dateFormat, cancelLabel: cancelLabel }} />
     </Filter>
 );
 

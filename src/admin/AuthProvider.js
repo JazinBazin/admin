@@ -44,7 +44,7 @@ const authProvider = {
     },
 
     checkError: (error) => {
-        alert(error);
+        console.log(error);
     },
 };
 

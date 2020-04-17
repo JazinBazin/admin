@@ -25,6 +25,20 @@ function listParamsMiddleware(req, res, next) {
                 "$eq": creationDate
             }
         }
+        else if (key == "dateFrom") {
+            let date = new Date(filters[key])
+            date.setHours(0, 0, 0, 0);
+            result["creationDate"] = {
+                "$gte": date
+            }
+        }
+        else if (key == "dateTo") {
+            let date = new Date(filters[key])
+            date.setHours(0, 0, 0, 0);
+            result["creationDate"] = {
+                "$lt": date
+            }
+        }
         else if (key == "authors") {
             result["authors.author"] = {
                 "$regex": filters[key],

@@ -20,11 +20,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/dist', express.static(path.join(appRoot.path, "/dist/")));
-
 app.use('/media', express.static(path.join(appRoot.path, "/media/")));
 
 app.use('/static', express.static(path.join(appRoot.path, "/static/")));
+
+app.use('/public', express.static(path.join(appRoot.path, "/public/")));
+
+app.use('/fonts', express.static(path.join(appRoot.path, "/public/fonts/")));
 
 app.get("/*", (req, res) => {
     res.sendFile((path.join(appRoot.path, "/public/index.html")));
