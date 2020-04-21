@@ -2,6 +2,9 @@ import React from 'react';
 import { AppBar } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import HomeIcon from '@material-ui/icons/Home';
+import { Link } from "react-router-dom";
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles({
     title: {
@@ -10,9 +13,9 @@ const useStyles = makeStyles({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
     },
-    spacer: {
-        flex: 1,
-    },
+    homeIcon: {
+        color: "white"
+    }
 });
 
 const MyAppBar = props => {
@@ -25,12 +28,11 @@ const MyAppBar = props => {
                 className={classes.title}
                 id="react-admin-title"
             />
-            {/* <Typography
-                variant="h6"
-                className={classes.title}>
-                Военный инновационный технополис "ЭРА"
-            </Typography> */}
-            <span className={classes.spacer} />
+            <Link to="/home">
+                <IconButton className={classes.homeIcon}>
+                    <HomeIcon />
+                </IconButton>
+            </Link>
         </AppBar>
     );
 };

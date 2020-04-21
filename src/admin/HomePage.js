@@ -93,7 +93,7 @@ const HomePage = () => {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardFooter}>
-                    <Button variant="contained" size="medium" color="primary" href={`${tab.link}`} target="_blank">
+                    <Button variant="contained" size="medium" color="primary" href={`${tab.link}`}>
                         Открыть
                     </Button>
                 </CardActions>
