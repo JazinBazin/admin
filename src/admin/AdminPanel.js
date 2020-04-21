@@ -51,6 +51,8 @@ import {
     ShowForm as UserShow,
 } from './resources/users';
 
+import Routes from "./routes";
+
 import DashBoard from './DashBoard';
 import MyLayout from "./MyLayout";
 
@@ -89,6 +91,7 @@ const AdminPanel = () => (
     <MuiPickersUtilsProvider utils={RuLocalizedUtils} locale={ru}>
         <Admin
             layout={MyLayout}
+            customRoutes={Routes}
             title={<span>Технополис "ЭРА"</span>}
             dashboard={DashBoard}
             i18nProvider={i18nProvider}
