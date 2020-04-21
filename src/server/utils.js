@@ -28,15 +28,26 @@ function listParamsMiddleware(req, res, next) {
         else if (key == "dateFrom") {
             let date = new Date(filters[key])
             date.setHours(0, 0, 0, 0);
-            result["creationDate"] = {
-                "$gte": date
+            if (result["creationDate"]) {
+                result["creationDate"]["$gte"] = date;
+            }
+            else {
+                result["creationDate"] = {
+                    "$gte": date
+                }
             }
         }
         else if (key == "dateTo") {
             let date = new Date(filters[key])
             date.setHours(0, 0, 0, 0);
-            result["creationDate"] = {
-                "$lt": date
+            date.setHours(0, 0, 0, 0);
+            if (result["creationDate"]) {
+                result["creationDate"]["$lt"] = date;
+            }
+            else {
+                result["creationDate"] = {
+                    "$lt": date
+                }
             }
         }
         else if (key == "authors") {

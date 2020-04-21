@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     header: {
         textAlign: "center",
         marginTop: "1em",
-        fontSize: "2.0em",
+        fontSize: "1.8em",
         fontFamily: "ProximaNova"
     },
 });
