@@ -42,7 +42,7 @@ export function getEditActions() {
         <TopToolbar>
             <ListButton basePath={basePath} record={data} />
             <CreateButton basePath={basePath} record={data} />
-            {/* <CloneButton basePath={basePath} record={data} /> */}
+            <CloneButton basePath={basePath} record={data} />
             <ShowButton basePath={basePath} record={data} />
             <RefreshButton basePath={basePath} record={data} />
         </TopToolbar>
@@ -51,13 +51,13 @@ export function getEditActions() {
 
 export function getEditActionsWithoutFile() {
     return ({ basePath, data, resource }) => {
-        // const dataWithoutFile = { ...data };
-        // delete dataWithoutFile.file;
+        const dataWithoutFile = { ...data };
+        delete dataWithoutFile.file;
         return (
             <TopToolbar>
                 <ListButton basePath={basePath} record={data} />
                 <CreateButton basePath={basePath} record={data} />
-                {/* <CloneButton basePath={basePath} record={dataWithoutFile} /> */}
+                <CloneButton basePath={basePath} record={dataWithoutFile} />
                 <ShowButton basePath={basePath} record={data} />
                 <RefreshButton basePath={basePath} record={data} />
             </TopToolbar>
