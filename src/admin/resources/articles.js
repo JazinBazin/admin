@@ -68,10 +68,6 @@ const Filters = (props) => (
             source="rota"
             validate={validateRota} />
         <DateInput
-            label="Дата создания"
-            source="creationDate"
-            options={{ format: dateFormat, cancelLabel: cancelLabel }} />
-        <DateInput
             label="Дата от"
             source="dateFrom"
             options={{ format: dateFormat, cancelLabel: cancelLabel }} />

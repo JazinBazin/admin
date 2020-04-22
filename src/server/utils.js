@@ -18,14 +18,7 @@ function listParamsMiddleware(req, res, next) {
     const filters = JSON.parse(req.query.filter);
 
     const regexFilters = Object.keys(filters).reduce((result, key) => {
-        if (key == "creationDate") {
-            let creationDate = new Date(filters[key])
-            creationDate.setHours(0, 0, 0, 0);
-            result[key] = {
-                "$eq": creationDate
-            }
-        }
-        else if (key == "dateFrom") {
+        if (key == "dateFrom") {
             let date = new Date(filters[key])
             date.setHours(0, 0, 0, 0);
             if (result["creationDate"]) {
