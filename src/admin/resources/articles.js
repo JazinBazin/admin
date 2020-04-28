@@ -10,8 +10,8 @@ import {
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
     ChipField, ReferenceInput, SelectInput,
-    ReferenceField, SelectArrayInput,
-    ReferenceArrayInput, ReferenceArrayField
+    ReferenceField,
+    SelectArrayInput, ReferenceArrayInput, ReferenceArrayField
 } from 'react-admin';
 
 import {

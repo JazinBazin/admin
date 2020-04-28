@@ -5,12 +5,12 @@ import {
     Edit, SimpleForm, TextInput,
     Create, Show, SimpleShowLayout,
     Filter, FileInput, FileField,
-    DateField, minValue,
+    DateField,
     required, minLength,
     ArrayInput, SimpleFormIterator,
     ArrayField, SingleFieldList,
     ChipField, ReferenceInput, SelectInput,
-    ReferenceField, NumberInput,
+    SelectArrayInput, ReferenceArrayInput, ReferenceArrayField
 } from 'react-admin';
 
 import {
@@ -26,7 +26,6 @@ const validateHeadline = [required(), minLength(1),];
 const validateDescription = [required(), minLength(1),];
 const validateCreationDate = [required(),];
 const validateAuthors = [required(),];
-const validateRota = [minValue(1),];
 const validateFile = [required(),];
 
 const dateFormat = 'dd.MM.yyyy';
@@ -52,15 +51,11 @@ const Filters = (props) => (
             label="Автор"
             source="authors" />
         <ReferenceInput
-            label="Отдел"
-            source="department"
-            reference="departments">
+            label="Подразделение"
+            source="subdivisions"
+            reference="subdivisions">
             <SelectInput optionText="name" />
         </ReferenceInput>
-        <NumberInput
-            label="Рота"
-            source="rota"
-            validate={validateRota} />
         <DateInput
             label="Дата от"
             source="dateFrom"
@@ -92,16 +87,11 @@ export const ListForm = ({ permissions, ...props }) => (
                 label="Описание"
                 source="description"
                 maxchars={250} />
-            <ReferenceField
-                label="Отдел"
-                source="department"
-                reference="departments"
-                link="">
-                <TextField source="name" />
-            </ReferenceField>
-            <RotaField
-                label="Рота"
-                source="rota" />
+            <ReferenceArrayField label="Подразделения" reference="subdivisions" source="subdivisions">
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
             <ArrayField
                 source="authors"
                 label="Авторы">
@@ -155,16 +145,14 @@ export const CreateForm = props => (
                         source="author" />
                 </SimpleFormIterator>
             </ArrayInput>
-            <NumberInput
-                label="Рота"
-                source="rota"
-                validate={validateRota} />
-            <ReferenceInput
-                label="Отдел"
-                source="department"
-                reference="departments">
-                <SelectInput optionText="name" />
-            </ReferenceInput>
+            <ReferenceArrayInput
+                fullWidth
+                label="Подразделения"
+                reference="subdivisions"
+                source="subdivisions"
+                perPage={1000}>
+                <SelectArrayInput optionText="name" />
+            </ReferenceArrayInput>
             <FileInput
                 source="file"
                 label="Архив"
@@ -213,16 +201,14 @@ export const EditForm = props => (
                         source="author" />
                 </SimpleFormIterator>
             </ArrayInput>
-            <NumberInput
-                label="Рота"
-                source="rota"
-                validate={validateRota} />
-            <ReferenceInput
-                label="Отдел"
-                source="department"
-                reference="departments">
-                <SelectInput optionText="name" />
-            </ReferenceInput>
+            <ReferenceArrayInput
+                fullWidth
+                label="Подразделения"
+                reference="subdivisions"
+                source="subdivisions"
+                perPage={1000}>
+                <SelectArrayInput optionText="name" />
+            </ReferenceArrayInput>
             <FileField
                 source="file.url"
                 title="file.title"
@@ -267,16 +253,11 @@ export const ShowForm = ({ permissions, enableActions, ...props }) => {
                             source="author" />
                     </SingleFieldList>
                 </ArrayField>
-                <TextField
-                    label="Рота"
-                    source="rota" />
-                <ReferenceField
-                    label="Отдел"
-                    source="department"
-                    reference="departments"
-                    link="">
-                    <TextField source="name" />
-                </ReferenceField>
+                <ReferenceArrayField label="Подразделения" reference="subdivisions" source="subdivisions">
+                    <SingleFieldList>
+                        <ChipField source="name" />
+                    </SingleFieldList>
+                </ReferenceArrayField>
                 <FileField
                     source="file.url"
                     title="file.title"

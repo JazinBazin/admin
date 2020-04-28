@@ -32,30 +32,6 @@ exports.articleSchema = new Schema({
 },
     { versionKey: false });
 
-exports.departmentSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    firstCreationDate: {
-        type: Date,
-        required: true
-    },
-},
-    { versionKey: false });
-
-exports.subdivisionSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    firstCreationDate: {
-        type: Date,
-        required: true
-    },
-},
-    { versionKey: false });
-
 exports.programmSchema = new Schema(
     {
         headline: {
@@ -74,34 +50,13 @@ exports.programmSchema = new Schema(
             type: Date,
             required: true
         },
-        rota: {
-            type: Number,
-            required: false,
-            min: 1
-        },
-        department: {
-            type: Schema.Types.ObjectId,
-            required: false,
-            ref: "Department"
-        },
         authors: [{ author: String }],
+        subdivisions: [String],
         file: {
             type: String,
             required: true
         }
     },
-    { versionKey: false });
-
-exports.publicationSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    firstCreationDate: {
-        type: Date,
-        required: true
-    },
-},
     { versionKey: false });
 
 exports.rationalizationSchema = new Schema(
@@ -122,17 +77,8 @@ exports.rationalizationSchema = new Schema(
             type: Date,
             required: true
         },
-        rota: {
-            type: Number,
-            required: false,
-            min: 1
-        },
-        department: {
-            type: Schema.Types.ObjectId,
-            required: false,
-            ref: "Department"
-        },
         authors: [{ author: String }],
+        subdivisions: [String],
         file: {
             type: String,
             required: true
@@ -158,22 +104,37 @@ exports.researchSchema = new Schema(
             type: Date,
             required: true
         },
-        rota: {
-            type: Number,
-            required: false,
-            min: 1
-        },
-        department: {
-            type: Schema.Types.ObjectId,
-            required: false,
-            ref: "Department"
-        },
         authors: [{ author: String }],
+        subdivisions: [String],
         file: {
             type: String,
             required: true
         }
     },
+    { versionKey: false });
+
+exports.subdivisionSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    firstCreationDate: {
+        type: Date,
+        required: true
+    },
+},
+    { versionKey: false });
+
+exports.publicationSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    firstCreationDate: {
+        type: Date,
+        required: true
+    },
+},
     { versionKey: false });
 
 exports.userSchema = new Schema({
@@ -189,6 +150,18 @@ exports.userSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    firstCreationDate: {
+        type: Date,
+        required: true
+    },
+},
+    { versionKey: false });
+
+exports.departmentSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
     },
     firstCreationDate: {
         type: Date,
