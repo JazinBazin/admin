@@ -58,6 +58,7 @@ const Filters = (props) => (
             <SelectInput optionText="name" />
         </ReferenceInput>
         <ReferenceInput
+            perPage={1000}
             label="Подразделение"
             source="subdivisions"
             reference="subdivisions">

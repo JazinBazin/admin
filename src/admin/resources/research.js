@@ -51,6 +51,7 @@ const Filters = (props) => (
             label="Автор"
             source="authors" />
         <ReferenceInput
+            perPage={1000}
             label="Подразделение"
             source="subdivisions"
             reference="subdivisions">
