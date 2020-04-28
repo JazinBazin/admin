@@ -79,7 +79,8 @@ export const ListForm = ({ permissions, ...props }) => (
         bulkActionButtons={<BulkActionButtons permissions={permissions} />}
         {...props}>
         <Datagrid
-            rowClick={permissions ? "edit" : "show"}
+            // rowClick={permissions ? "edit" : "show"}
+            rowClick="show"
             expand={<ShowForm enableActions={false} />}>>
             <HeadlineField
                 label="Название"
