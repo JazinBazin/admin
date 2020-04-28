@@ -17,6 +17,7 @@ function extractDataToSend(data) {
         rota: data.rota || undefined,
         department: data.department || undefined,
         authors: data.authors,
+        subdivisions: data.subdivisions,
         file: {
             url: data.file,
             title: data.headline
@@ -32,7 +33,8 @@ function extractDataFromRequest(req) {
         "publicationPlace": req.body.publicationPlace,
         "rota": req.body.rota,
         "department": req.body.department,
-        "authors": JSON.parse(req.body.authors)
+        "authors": JSON.parse(req.body.authors),
+        "subdivisions":  JSON.parse(req.body.subdivisions),
     }
 }
 

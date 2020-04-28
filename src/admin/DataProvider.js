@@ -20,6 +20,7 @@ const dataProvider = {
                 }
                 else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
                 else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
+                else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
                 else formData.append(key, params.data[key]);
             }
             return fetch(`${apiUrl}/${resource}`,

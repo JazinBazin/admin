@@ -38,11 +38,11 @@ import {
 } from './resources/publication';
 
 import {
-    ListForm as DepartmentList,
-    EditForm as DepartmentEdit,
-    CreateForm as DepartmentCreate,
-    ShowForm as DepartmentShow,
-} from './resources/departments';
+    ListForm as SubdivisionList,
+    EditForm as SubdivisionEdit,
+    CreateForm as SubdivisionCreate,
+    ShowForm as SubdivisionShow,
+} from './resources/subdivisions';
 
 import {
     ListForm as UserList,
@@ -139,13 +139,13 @@ const AdminPanel = () => (
                     create={PublicationCreate}
                     show={PublicationShow} />,
                 <Resource
-                    name="departments"
+                    name="subdivisions"
                     icon={PieChartIcon}
-                    options={{ label: 'Отделы' }}
-                    list={DepartmentList}
-                    edit={DepartmentEdit}
-                    create={DepartmentCreate}
-                    show={DepartmentShow} />,
+                    options={{ label: 'Подразделения' }}
+                    list={SubdivisionList}
+                    edit={SubdivisionEdit}
+                    create={SubdivisionCreate}
+                    show={SubdivisionShow} />,
                 <Resource
                     name="users"
                     icon={GroupIcon}
