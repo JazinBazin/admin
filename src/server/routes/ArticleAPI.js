@@ -14,8 +14,6 @@ function extractDataToSend(data) {
         creationDate: data.creationDate,
         firstCreationDate: data.firstCreationDate,
         publicationPlace: data.publicationPlace || undefined,
-        rota: data.rota || undefined,
-        department: data.department || undefined,
         authors: data.authors,
         subdivisions: data.subdivisions,
         file: {
@@ -31,8 +29,6 @@ function extractDataFromRequest(req) {
         "text": req.body.text,
         "creationDate": new Date(req.body.creationDate),
         "publicationPlace": req.body.publicationPlace,
-        "rota": req.body.rota,
-        "department": req.body.department,
         "authors": JSON.parse(req.body.authors),
         "subdivisions":  JSON.parse(req.body.subdivisions),
     }
