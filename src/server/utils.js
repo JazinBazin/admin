@@ -156,7 +156,9 @@ function createAPIwithFile(app, resource, mimeTypes,
 
     const filesStorage = multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, path.join(appRoot.path, filesFolder));
+            const dir = path.join(appRoot.path, filesFolder);
+            if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+            cb(null, dir);
         },
         filename: (req, file, cb) => {
             cb(null, shortid.generate() + "_" + file.originalname);

@@ -14,7 +14,10 @@ function extractDataToSend(data) {
         creationDate: data.creationDate,
         firstCreationDate: data.firstCreationDate,
         authors: data.authors,
-        subdivisions: data.subdivisions,
+        headPerformer: data.headPerformer,
+        customer: data.customer,
+        category: data.category,
+        // subdivisions: data.subdivisions,
         file: {
             url: data.file,
             title: data.headline
@@ -28,7 +31,10 @@ function extractDataFromRequest(req) {
         "description": req.body.description,
         "creationDate": new Date(req.body.creationDate),
         "authors": JSON.parse(req.body.authors),
-        "subdivisions": JSON.parse(req.body.subdivisions),
+        "headPerformer": req.body.headPerformer,
+        "customer": req.body.customer,
+        "category": req.body.category,
+        // "subdivisions": JSON.parse(req.body.subdivisions),
     }
 }
 

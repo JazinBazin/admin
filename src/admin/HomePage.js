@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import {
     Grid, Typography, Card,
     CardContent, Button,
-    CardActions
+    CardActions, Link
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -55,10 +55,16 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '35rem'
     },
     cardContent: {
-        padding: "0.3em 0",
+        padding: "0.7em 0",
     },
     cardContentTitle: {
         fontFamily: "ProximaNova"
+    },
+    cardLink: {
+        color: "black",
+        "&:hover": {
+            textDecoration: "none",
+        }
     },
     cardImage: {
         display: "block",
@@ -86,17 +92,16 @@ const HomePage = () => {
     const cards = tabsData.map(tab => (
         <Grid container item justify="center" xs={12} md={6} lg={4}>
             <Card className={classes.card}>
-                <img className={classes.cardImage} src={`${tab.image}`} />
-                <CardContent className={classes.cardContent}>
-                    <Typography className={classes.cardContentTitle} align="center" variant="h6" component="h2">
-                        {tab.title}
-                    </Typography>
-                </CardContent>
-                <CardActions className={classes.cardFooter}>
-                    <Button variant="contained" size="medium" color="primary" href={`${tab.link}`}>
-                        Открыть
-                    </Button>
-                </CardActions>
+                <Link href={`${tab.link}`}>
+                    <img className={classes.cardImage} src={`${tab.image}`} />
+                </Link>
+                <div className={classes.cardContent}>
+                    <Link color="text" className={classes.cardLink} href={`${tab.link}`}>
+                        <Typography className={classes.cardContentTitle} align="center" variant="h6" component="h2">
+                            {tab.title}
+                        </Typography>
+                    </Link>
+                </div>
             </Card>
         </Grid>
     ));

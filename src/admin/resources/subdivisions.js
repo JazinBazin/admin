@@ -35,7 +35,7 @@ export const ListForm = ({ permissions, ...props }) => (
     <List
         title="Список подразделений"
         filters={<Filters />}
-        perPage={10}
+        perPage={25}
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
         empty={<Empty />}

@@ -28,7 +28,21 @@ import {
     EditForm as RationalizationEdit,
     CreateForm as RationalizationCreate,
     ShowForm as RationalizationShow,
-} from './resources/rationalization'
+} from './resources/rationalization';
+
+import {
+    ListForm as AbstractList,
+    EditForm as AbstractEdit,
+    CreateForm as AbstractCreate,
+    ShowForm as AbstractShow,
+} from './resources/abstracts';
+
+import {
+    ListForm as PatentList,
+    EditForm as PatentEdit,
+    CreateForm as PatentCreate,
+    ShowForm as PatentShow,
+} from './resources/patents';
 
 import {
     ListForm as PublicationList,
@@ -63,6 +77,8 @@ import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PieChartIcon from '@material-ui/icons/PieChart';
 import GroupIcon from '@material-ui/icons/Group';
+import ListIcon from '@material-ui/icons/List';
+import CardMembershipIcon from '@material-ui/icons/CardMembership';
 
 import dataProvider from './DataProvider';
 import authProvider from "./AuthProvider";
@@ -117,7 +133,7 @@ const AdminPanel = () => (
                 <Resource
                     name="research"
                     icon={MenuBookIcon}
-                    options={{ label: 'Научные работы' }}
+                    options={{ label: 'НИР' }}
                     list={ResearchList}
                     edit={permissions ? ResearchEdit : null}
                     create={permissions ? ResearchCreate : null}
@@ -130,6 +146,22 @@ const AdminPanel = () => (
                     edit={permissions ? RationalizationEdit : null}
                     create={permissions ? RationalizationCreate : null}
                     show={RationalizationShow} />,
+                <Resource
+                    name="patents"
+                    icon={CardMembershipIcon}
+                    options={{ label: 'Патенты' }}
+                    list={PatentList}
+                    edit={permissions ? PatentEdit : null}
+                    create={permissions ? PatentCreate : null}
+                    show={PatentShow} />,
+                <Resource
+                    name="abstracts"
+                    icon={ListIcon}
+                    options={{ label: 'Тезисы докладов' }}
+                    list={AbstractList}
+                    edit={permissions ? AbstractEdit : null}
+                    create={permissions ? AbstractCreate : null}
+                    show={AbstractShow} />,
                 <Resource
                     name="publication"
                     icon={VisibilityIcon}

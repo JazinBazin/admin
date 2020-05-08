@@ -31,12 +31,19 @@ const validateFile = [required(),];
 const dateFormat = 'dd.MM.yyyy';
 const cancelLabel = "Отмена"
 
-const Title = createTitle("Научная работа", "headline");
-const Empty = createEmptyPage("Нет доступных научных работ",
-    'Для добавления научной работы нажмите кнопку "Создать"')
+const Title = createTitle("Научно-исследовательская работа", "headline");
+const Empty = createEmptyPage("Нет доступных научно-исследовательских работ",
+    'Для добавления научно-исследовательская работы нажмите кнопку "Создать"')
 const ShowActions = getShowActions();
 const EditActions = getEditActionsWithoutFile();
 const BulkActionButtons = getBulkActionButtons();
+
+const categoryChoices = [
+    { id: "1", name: "1" },
+    { id: "2", name: "2" },
+    { id: "3", name: "3" },
+    { id: "ГОЗ", name: "ГОЗ" },
+];
 
 const Filters = (props) => (
     <Filter {...props}>
@@ -48,15 +55,25 @@ const Filters = (props) => (
             label="Описание"
             source="description" />
         <TextInput
-            label="Автор"
+            label="Головной исполнитель"
+            source="headPerformer" />
+        <TextInput
+            label="Заказчик"
+            source="customer" />
+        <TextInput
+            label="Cоисполнитель"
             source="authors" />
-        <ReferenceInput
+        <SelectInput
+            label="Категория"
+            source="category"
+            choices={categoryChoices} />
+        {/* <ReferenceInput
             perPage={1000}
             label="Подразделение"
             source="subdivisions"
             reference="subdivisions">
             <SelectInput optionText="name" />
-        </ReferenceInput>
+        </ReferenceInput> */}
         <DateInput
             label="Дата от"
             source="dateFrom"
@@ -70,9 +87,9 @@ const Filters = (props) => (
 
 export const ListForm = ({ permissions, ...props }) => (
     <List
-        title="Список научных работ"
+        title="Список научно-исследовательских работ"
         filters={<Filters />}
-        perPage={5}
+        perPage={25}
         exporter={false}
         sort={{ field: 'firstCreationDate', order: 'DESC' }}
         empty={<Empty />}
@@ -89,17 +106,18 @@ export const ListForm = ({ permissions, ...props }) => (
                 label="Описание"
                 source="description"
                 maxchars={250} />
-            <ReferenceArrayField label="Подразделения" reference="subdivisions" source="subdivisions">
-                <SingleFieldList>
-                    <ChipField source="name" />
-                </SingleFieldList>
-            </ReferenceArrayField>
+            <TextField
+                label="Головной исполнитель"
+                source="headPerformer" />
+            <TextField
+                label="Заказчик"
+                source="customer" />
             <ArrayField
                 source="authors"
-                label="Авторы">
+                label="Соисполнители">
                 <SingleFieldList linkType={false}>
                     <ChipField
-                        label="Автор"
+                        label="Соисполнитель"
                         source="author" />
                 </SingleFieldList>
             </ArrayField>
@@ -108,14 +126,19 @@ export const ListForm = ({ permissions, ...props }) => (
                 source="creationDate"
                 locales="ru-RU"
             />
+            {/* <ReferenceArrayField label="Подразделения" reference="subdivisions" source="subdivisions">
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField> */}
         </Datagrid>
     </List>
 );
 
 export const CreateForm = props => (
     <Create
-        title="Добавить научную работу"
-        successMessage="Научная работа добавлена"
+        title="Добавить научно-исследовательская работу"
+        successMessage="Научно-исследовательская работа добавлена"
         undoable={false}
         {...props}>
         <SimpleForm
@@ -132,32 +155,42 @@ export const CreateForm = props => (
                 multiline
                 source="description"
                 validate={validateDescription} />
+            <TextInput
+                label="Головной исполнитель"
+                source="headPerformer" />
+            <TextInput
+                label="Заказчик"
+                source="customer" />
+            <ArrayInput
+                validate={validateAuthors}
+                source="authors"
+                label="Соискатели">
+                <SimpleFormIterator>
+                    <TextInput
+                        label="Соискатель"
+                        source="author" />
+                </SimpleFormIterator>
+            </ArrayInput>
+            <SelectInput
+                label="Категория"
+                source="category"
+                choices={categoryChoices} />
             <DateInput
                 label="Дата создания"
                 source="creationDate"
                 validate={validateCreationDate}
                 options={{ format: dateFormat, cancelLabel: cancelLabel }} />
-            <ArrayInput
-                validate={validateAuthors}
-                source="authors"
-                label="Авторы">
-                <SimpleFormIterator>
-                    <TextInput
-                        label="Автор"
-                        source="author" />
-                </SimpleFormIterator>
-            </ArrayInput>
-            <ReferenceArrayInput
+            {/* <ReferenceArrayInput
                 fullWidth
                 label="Подразделения"
                 reference="subdivisions"
                 source="subdivisions"
                 perPage={1000}>
                 <SelectArrayInput optionText="name" />
-            </ReferenceArrayInput>
+            </ReferenceArrayInput> */}
             <FileInput
                 source="file"
-                label="Архив с научной работой"
+                label="Архив с научно-исследовательской работой"
                 accept="application/x-rar-compressed, application/zip"
                 validate={validateFile}>
                 <FileField
@@ -171,7 +204,7 @@ export const CreateForm = props => (
 export const EditForm = props => (
     <Edit
         title={<Title />}
-        successMessage="Научная работа обновлена"
+        successMessage="Научно-исследовательская работа обновлена"
         undoable={false}
         actions={<EditActions />}
         {...props}>
@@ -188,33 +221,43 @@ export const EditForm = props => (
                 multiline
                 source="description"
                 validate={validateDescription} />
+            <TextInput
+                label="Головной исполнитель"
+                source="headPerformer" />
+            <TextInput
+                label="Заказчик"
+                source="customer" />
+            <ArrayInput
+                validate={validateAuthors}
+                label="Соискатели"
+                source="authors">
+                <SimpleFormIterator>
+                    <TextInput
+                        label="Соискатель"
+                        source="author" />
+                </SimpleFormIterator>
+            </ArrayInput>
+            <SelectInput
+                label="Категория"
+                source="category"
+                choices={categoryChoices} />
             <DateInput
                 label="Дата создания"
                 source="creationDate"
                 validate={validateCreationDate}
                 options={{ format: dateFormat, cancelLabel: cancelLabel }} />
-            <ArrayInput
-                validate={validateAuthors}
-                label="Авторы"
-                source="authors">
-                <SimpleFormIterator>
-                    <TextInput
-                        label="Автор"
-                        source="author" />
-                </SimpleFormIterator>
-            </ArrayInput>
-            <ReferenceArrayInput
+            {/* <ReferenceArrayInput
                 fullWidth
                 label="Подразделения"
                 reference="subdivisions"
                 source="subdivisions"
                 perPage={1000}>
                 <SelectArrayInput optionText="name" />
-            </ReferenceArrayInput>
+            </ReferenceArrayInput> */}
             <FileField
                 source="file.url"
                 title="file.title"
-                label="Архив с научной работой"
+                label="Архив с научно-исследовательской работой"
                 target="_blank" />
             <FileInput
                 source="newfile"
@@ -242,28 +285,37 @@ export const ShowForm = ({ permissions, enableActions, ...props }) => {
                 <TextField
                     label="Описание"
                     source="description" />
+                <TextField
+                    label="Головной исполнитель"
+                    source="headPerformer" />
+                <TextField
+                    label="Заказчик"
+                    source="customer" />
+                <ArrayField
+                    label="Соискатели"
+                    source="authors">
+                    <SingleFieldList linkType={false}>
+                        <ChipField
+                            label="Соискатель"
+                            source="author" />
+                    </SingleFieldList>
+                </ArrayField>
+                <TextField
+                    label="Категория"
+                    source="category" />
                 <DateField
                     label="Дата создания"
                     source="creationDate"
                     locales="ru-RU" />
-                <ArrayField
-                    label="Авторы"
-                    source="authors">
-                    <SingleFieldList linkType={false}>
-                        <ChipField
-                            label="Автор"
-                            source="author" />
-                    </SingleFieldList>
-                </ArrayField>
-                <ReferenceArrayField label="Подразделения" reference="subdivisions" source="subdivisions">
+                {/* <ReferenceArrayField label="Подразделения" reference="subdivisions" source="subdivisions">
                     <SingleFieldList>
                         <ChipField source="name" />
                     </SingleFieldList>
-                </ReferenceArrayField>
+                </ReferenceArrayField> */}
                 <FileField
                     source="file.url"
                     title="file.title"
-                    label="Архив с научной работой"
+                    label="Архив с научно-исследовательской работой"
                     target="_blank" />
             </SimpleShowLayout>
         </Show>

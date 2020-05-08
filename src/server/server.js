@@ -10,7 +10,8 @@ require('./routes/ProgrammAPI')(app);
 require('./routes/ResearchAPI')(app);
 require('./routes/RationalizationAPI')(app);
 require('./routes/PublicationAPI')(app);
-// require('./routes/DepartmentAPI')(app);
+require('./routes/AbstractAPI')(app);
+require('./routes/PatentsAPI')(app);
 require('./routes/UserAPI')(app);
 require('./routes/SubdivisionAPI')(app);
 

@@ -6,64 +6,49 @@ const restProvider = simpleRestProvider(apiUrl);
 const dataProvider = {
     ...restProvider,
     create: (resource, params) => {
-        if (
-            resource == 'articles' ||
-            resource == 'programms' ||
-            resource == 'research' ||
-            resource == 'rationalization') {
-            const formData = new FormData();
-            for (const key in params.data) {
-                if (key == 'creationDate') {
-                    let date = new Date(params.data[key]);
-                    date.setHours(0, 0, 0, 0);
-                    formData.append(key, date.toDateString());
-                }
-                else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
-                else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
-                else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
-                else formData.append(key, params.data[key]);
+        const formData = new FormData();
+        for (const key in params.data) {
+            if (key == 'creationDate') {
+                let date = new Date(params.data[key]);
+                date.setHours(0, 0, 0, 0);
+                formData.append(key, date.toDateString());
             }
-            return fetch(`${apiUrl}/${resource}`,
-                {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(({ json }) => ({
-                    data: { ...params.data, id: json.id },
-                }));
-
+            else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+            else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
+            else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
+            else formData.append(key, params.data[key]);
         }
-        return restProvider.create(resource, params);
+        return fetch(`${apiUrl}/${resource}`,
+            {
+                method: 'POST',
+                body: formData
+            })
+            .then(({ json }) => ({
+                data: { ...params.data, id: json.id },
+            }));
     },
     update: (resource, params) => {
-        if (
-            resource == 'articles' ||
-            resource == 'programms' ||
-            resource == 'research' ||
-            resource == 'rationalization') {
-            const formData = new FormData();
-            for (const key in params.data) {
-                if (key == 'creationDate') {
-                    let date = new Date(params.data[key]);
-                    date.setHours(0, 0, 0, 0);
-                    formData.append(key, date.toDateString());
-                }
-                else if (key == 'file') formData.append(key, params.data[key].url);
-                else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
-                else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
-                else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
-                else formData.append(key, params.data[key]);
+        const formData = new FormData();
+        for (const key in params.data) {
+            if (key == 'creationDate') {
+                let date = new Date(params.data[key]);
+                date.setHours(0, 0, 0, 0);
+                formData.append(key, date.toDateString());
             }
-            return fetch(`${apiUrl}/${resource}/${params.id}`,
-                {
-                    method: 'PUT',
-                    body: formData
-                })
-                .then(({ json }) => ({
-                    data: json
-                }));
+            else if (key == 'file') formData.append(key, params.data[key].url);
+            else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+            else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
+            else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
+            else formData.append(key, params.data[key]);
         }
-        return restProvider.update(resource, params);
+        return fetch(`${apiUrl}/${resource}/${params.id}`,
+            {
+                method: 'PUT',
+                body: formData
+            })
+            .then(({ json }) => ({
+                data: json
+            }));
     },
     getMany: (resource, params) => {
         const formData = new FormData();
