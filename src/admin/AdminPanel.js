@@ -66,6 +66,13 @@ import {
 } from './resources/verifications';
 
 import {
+    ListForm as ProjectList,
+    EditForm as ProjectEdit,
+    CreateForm as ProjectCreate,
+    ShowForm as ProjectShow,
+} from './resources/projects';
+
+import {
     ListForm as PublicationList,
     EditForm as PublicationEdit,
     CreateForm as PublicationCreate,
@@ -101,8 +108,10 @@ import GroupIcon from '@material-ui/icons/Group';
 import ListIcon from '@material-ui/icons/List';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+// import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import BallotIcon from '@material-ui/icons/Ballot';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import CardTravelIcon from '@material-ui/icons/CardTravel';
 
 import dataProvider from './DataProvider';
 import authProvider from "./AuthProvider";
@@ -179,6 +188,14 @@ const AdminPanel = () => (
                     create={permissions ? RationalizationCreate : null}
                     show={RationalizationShow} />,
                 <Resource
+                    name="projects"
+                    icon={CardTravelIcon}
+                    options={{ label: 'Проекты' }}
+                    list={ProjectList}
+                    edit={permissions ? ProjectEdit : null}
+                    create={permissions ? ProjectCreate : null}
+                    show={ProjectShow} />,
+                <Resource
                     name="abstracts"
                     icon={ListIcon}
                     options={{ label: 'Тезисы докладов' }}
@@ -204,7 +221,7 @@ const AdminPanel = () => (
                     show={PatentShow} />,
                 <Resource
                     name="verifications"
-                    icon={PlaylistAddCheckIcon}
+                    icon={BallotIcon}
                     options={{ label: 'Испытания' }}
                     list={VerificationList}
                     edit={permissions ? VerificationEdit : null}

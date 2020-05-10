@@ -5,7 +5,7 @@ const restProvider = simpleRestProvider(apiUrl);
 
 const mainResources = [
     "abstracts", "articles", "patents", "programms", "rationalization",
-    "research", "approbations", "verifications", "developments"];
+    "research", "approbations", "verifications", "developments", "projects"];
 
 const dataProvider = {
     ...restProvider,

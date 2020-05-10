@@ -163,6 +163,44 @@ exports.developmentWorkSchema = new Schema(
     },
     { versionKey: false });
 
+exports.projectsSchema = new Schema(
+    {
+        headline: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        creationDate: {
+            type: Date,
+            required: true
+        },
+        firstCreationDate: {
+            type: Date,
+            required: true
+        },
+        headPerformer: {
+            type: String,
+            required: true,
+        },
+        customer: {
+            type: String,
+            required: true,
+        },
+        category: {
+            type: String,
+            required: true
+        },
+        authors: [{ author: String }],
+        file: {
+            type: String,
+            required: true
+        }
+    },
+    { versionKey: false });
+
 exports.abstractSchema = new Schema(
     {
         headline: {
