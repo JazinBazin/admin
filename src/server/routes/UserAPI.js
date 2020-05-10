@@ -100,6 +100,7 @@ module.exports = function (app) {
     app.post(`/api/${resource}`, cookieParser, auth, jsonParser, (req, res) => {
         if (req.isAdmin) {
             let data = extractDataFromRequest(req);
+            console.log(data);
             User.findOne({ login: data.login })
                 .then(user => {
                     if (user) {

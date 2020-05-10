@@ -3,52 +3,60 @@ import simpleRestProvider from 'ra-data-simple-rest';
 const apiUrl = "http://localhost:3000/api";
 const restProvider = simpleRestProvider(apiUrl);
 
+const mainResources = ["abstracts", "articles", "patents", "programms", "rationalization", "research"]
+
 const dataProvider = {
     ...restProvider,
     create: (resource, params) => {
-        const formData = new FormData();
-        for (const key in params.data) {
-            if (key == 'creationDate') {
-                let date = new Date(params.data[key]);
-                date.setHours(0, 0, 0, 0);
-                formData.append(key, date.toDateString());
+        if (mainResources.includes(resource)) {
+            const formData = new FormData();
+            for (const key in params.data) {
+                if (key == 'creationDate') {
+                    let date = new Date(params.data[key]);
+                    date.setHours(0, 0, 0, 0);
+                    formData.append(key, date.toDateString());
+                }
+                else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+                else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
+                else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
+                else formData.append(key, params.data[key]);
             }
-            else if (key == 'file') formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
-            else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
-            else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
-            else formData.append(key, params.data[key]);
+            return fetch(`${apiUrl}/${resource}`,
+                {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(({ json }) => ({
+                    data: { ...params.data, id: json.id },
+                }));
         }
-        return fetch(`${apiUrl}/${resource}`,
-            {
-                method: 'POST',
-                body: formData
-            })
-            .then(({ json }) => ({
-                data: { ...params.data, id: json.id },
-            }));
+        else return restProvider.create(resource, params);
     },
     update: (resource, params) => {
-        const formData = new FormData();
-        for (const key in params.data) {
-            if (key == 'creationDate') {
-                let date = new Date(params.data[key]);
-                date.setHours(0, 0, 0, 0);
-                formData.append(key, date.toDateString());
+        if (mainResources.includes(resource)) {
+            const formData = new FormData();
+            for (const key in params.data) {
+                if (key == 'creationDate') {
+                    let date = new Date(params.data[key]);
+                    date.setHours(0, 0, 0, 0);
+                    formData.append(key, date.toDateString());
+                }
+                else if (key == 'file') formData.append(key, params.data[key].url);
+                else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
+                else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
+                else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
+                else formData.append(key, params.data[key]);
             }
-            else if (key == 'file') formData.append(key, params.data[key].url);
-            else if (key == 'newfile' && params.data[key]) formData.append(key, params.data[key].rawFile, params.data[key].rawFile.name);
-            else if (key == 'authors') formData.append(key, JSON.stringify(params.data[key]));
-            else if (key == 'subdivisions') formData.append(key, JSON.stringify(params.data[key]));
-            else formData.append(key, params.data[key]);
+            return fetch(`${apiUrl}/${resource}/${params.id}`,
+                {
+                    method: 'PUT',
+                    body: formData
+                })
+                .then(({ json }) => ({
+                    data: json
+                }));
         }
-        return fetch(`${apiUrl}/${resource}/${params.id}`,
-            {
-                method: 'PUT',
-                body: formData
-            })
-            .then(({ json }) => ({
-                data: json
-            }));
+        else return restProvider.create(resource, params);
     },
     getMany: (resource, params) => {
         const formData = new FormData();
