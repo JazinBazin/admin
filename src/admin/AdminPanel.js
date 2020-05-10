@@ -140,7 +140,7 @@ const AdminPanel = () => (
         <Admin
             layout={MyLayout}
             customRoutes={Routes}
-            title={<span>Технополис "ЭРА"</span>}
+            title='Технополис "ЭРА"'
             dashboard={DashBoard}
             i18nProvider={i18nProvider}
             dataProvider={dataProvider}
