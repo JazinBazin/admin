@@ -170,14 +170,14 @@ const AdminPanel = () => (
                     edit={permissions ? ResearchEdit : null}
                     create={permissions ? ResearchCreate : null}
                     show={ResearchShow} />,
-                <Resource
-                    name="developments"
-                    icon={DashboardIcon}
-                    options={{ label: 'ОКР' }}
-                    list={DevelopmentList}
-                    edit={permissions ? DevelopmentEdit : null}
-                    create={permissions ? DevelopmentCreate : null}
-                    show={DevelopmentShow} />,
+                // <Resource
+                //     name="developments"
+                //     icon={DashboardIcon}
+                //     options={{ label: 'ОКР' }}
+                //     list={DevelopmentList}
+                //     edit={permissions ? DevelopmentEdit : null}
+                //     create={permissions ? DevelopmentCreate : null}
+                //     show={DevelopmentShow} />,
                 <Resource
                     name="rationalization"
                     icon={EmojiObjectsIcon}
@@ -186,14 +186,14 @@ const AdminPanel = () => (
                     edit={permissions ? RationalizationEdit : null}
                     create={permissions ? RationalizationCreate : null}
                     show={RationalizationShow} />,
-                <Resource
-                    name="projects"
-                    icon={CardTravelIcon}
-                    options={{ label: 'Проекты' }}
-                    list={ProjectList}
-                    edit={permissions ? ProjectEdit : null}
-                    create={permissions ? ProjectCreate : null}
-                    show={ProjectShow} />,
+                // <Resource
+                //     name="projects"
+                //     icon={CardTravelIcon}
+                //     options={{ label: 'Проекты' }}
+                //     list={ProjectList}
+                //     edit={permissions ? ProjectEdit : null}
+                //     create={permissions ? ProjectCreate : null}
+                //     show={ProjectShow} />,
                 <Resource
                     name="abstracts"
                     icon={ListIcon}
@@ -202,14 +202,14 @@ const AdminPanel = () => (
                     edit={permissions ? AbstractEdit : null}
                     create={permissions ? AbstractCreate : null}
                     show={AbstractShow} />,
-                <Resource
-                    name="approbations"
-                    icon={CheckCircleOutlineIcon}
-                    options={{ label: 'Апробации' }}
-                    list={ApprobationList}
-                    edit={permissions ? ApprobationEdit : null}
-                    create={permissions ? ApprobationCreate : null}
-                    show={ApprobationShow} />,
+                // <Resource
+                //     name="approbations"
+                //     icon={CheckCircleOutlineIcon}
+                //     options={{ label: 'Апробации' }}
+                //     list={ApprobationList}
+                //     edit={permissions ? ApprobationEdit : null}
+                //     create={permissions ? ApprobationCreate : null}
+                //     show={ApprobationShow} />,
                 <Resource
                     name="patents"
                     icon={CardMembershipIcon}
@@ -218,14 +218,14 @@ const AdminPanel = () => (
                     edit={permissions ? PatentEdit : null}
                     create={permissions ? PatentCreate : null}
                     show={PatentShow} />,
-                <Resource
-                    name="verifications"
-                    icon={BallotIcon}
-                    options={{ label: 'Испытания' }}
-                    list={VerificationList}
-                    edit={permissions ? VerificationEdit : null}
-                    create={permissions ? VerificationCreate : null}
-                    show={VerificationShow} />,
+                // <Resource
+                //     name="verifications"
+                //     icon={BallotIcon}
+                //     options={{ label: 'Испытания' }}
+                //     list={VerificationList}
+                //     edit={permissions ? VerificationEdit : null}
+                //     create={permissions ? VerificationCreate : null}
+                //     show={VerificationShow} />,
                 <Resource
                     name="publication"
                     icon={VisibilityIcon}
