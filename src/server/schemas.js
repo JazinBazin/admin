@@ -125,6 +125,44 @@ exports.researchSchema = new Schema(
     },
     { versionKey: false });
 
+exports.developmentWorkSchema = new Schema(
+    {
+        headline: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        creationDate: {
+            type: Date,
+            required: true
+        },
+        firstCreationDate: {
+            type: Date,
+            required: true
+        },
+        headPerformer: {
+            type: String,
+            required: true,
+        },
+        customer: {
+            type: String,
+            required: true,
+        },
+        category: {
+            type: String,
+            required: true
+        },
+        authors: [{ author: String }],
+        file: {
+            type: String,
+            required: true
+        }
+    },
+    { versionKey: false });
+
 exports.abstractSchema = new Schema(
     {
         headline: {
@@ -145,6 +183,74 @@ exports.abstractSchema = new Schema(
         },
         authors: [{ author: String }],
         subdivisions: [String],
+        file: {
+            type: String,
+            required: true
+        }
+    },
+    { versionKey: false });
+
+exports.approbationSchema = new Schema(
+    {
+        headline: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        creationDate: {
+            type: Date,
+            required: true
+        },
+        firstCreationDate: {
+            type: Date,
+            required: true
+        },
+        headPerformer: {
+            type: String,
+            required: true,
+        },
+        customer: {
+            type: String,
+            required: true,
+        },
+        authors: [{ author: String }],
+        file: {
+            type: String,
+            required: true
+        }
+    },
+    { versionKey: false });
+
+exports.verificationSchema = new Schema(
+    {
+        headline: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        },
+        creationDate: {
+            type: Date,
+            required: true
+        },
+        firstCreationDate: {
+            type: Date,
+            required: true
+        },
+        headPerformer: {
+            type: String,
+            required: true,
+        },
+        customer: {
+            type: String,
+            required: true,
+        },
+        authors: [{ author: String }],
         file: {
             type: String,
             required: true

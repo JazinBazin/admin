@@ -45,6 +45,27 @@ import {
 } from './resources/patents';
 
 import {
+    ListForm as ApprobationList,
+    EditForm as ApprobationEdit,
+    CreateForm as ApprobationCreate,
+    ShowForm as ApprobationShow,
+} from './resources/approbations';
+
+import {
+    ListForm as DevelopmentList,
+    EditForm as DevelopmentEdit,
+    CreateForm as DevelopmentCreate,
+    ShowForm as DevelopmentShow,
+} from './resources/developments';
+
+import {
+    ListForm as VerificationList,
+    EditForm as VerificationEdit,
+    CreateForm as VerificationCreate,
+    ShowForm as VerificationShow,
+} from './resources/verifications';
+
+import {
     ListForm as PublicationList,
     EditForm as PublicationEdit,
     CreateForm as PublicationCreate,
@@ -79,6 +100,9 @@ import PieChartIcon from '@material-ui/icons/PieChart';
 import GroupIcon from '@material-ui/icons/Group';
 import ListIcon from '@material-ui/icons/List';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import dataProvider from './DataProvider';
 import authProvider from "./AuthProvider";
@@ -139,6 +163,14 @@ const AdminPanel = () => (
                     create={permissions ? ResearchCreate : null}
                     show={ResearchShow} />,
                 <Resource
+                    name="developments"
+                    icon={DashboardIcon}
+                    options={{ label: 'ОКР' }}
+                    list={DevelopmentList}
+                    edit={permissions ? DevelopmentEdit : null}
+                    create={permissions ? DevelopmentCreate : null}
+                    show={DevelopmentShow} />,
+                <Resource
                     name="rationalization"
                     icon={EmojiObjectsIcon}
                     options={{ label: 'Рационализаторские\nпредложения' }}
@@ -146,6 +178,22 @@ const AdminPanel = () => (
                     edit={permissions ? RationalizationEdit : null}
                     create={permissions ? RationalizationCreate : null}
                     show={RationalizationShow} />,
+                <Resource
+                    name="abstracts"
+                    icon={ListIcon}
+                    options={{ label: 'Тезисы докладов' }}
+                    list={AbstractList}
+                    edit={permissions ? AbstractEdit : null}
+                    create={permissions ? AbstractCreate : null}
+                    show={AbstractShow} />,
+                <Resource
+                    name="approbations"
+                    icon={CheckCircleOutlineIcon}
+                    options={{ label: 'Апробации' }}
+                    list={ApprobationList}
+                    edit={permissions ? ApprobationEdit : null}
+                    create={permissions ? ApprobationCreate : null}
+                    show={ApprobationShow} />,
                 <Resource
                     name="patents"
                     icon={CardMembershipIcon}
@@ -155,13 +203,13 @@ const AdminPanel = () => (
                     create={permissions ? PatentCreate : null}
                     show={PatentShow} />,
                 <Resource
-                    name="abstracts"
-                    icon={ListIcon}
-                    options={{ label: 'Тезисы докладов' }}
-                    list={AbstractList}
-                    edit={permissions ? AbstractEdit : null}
-                    create={permissions ? AbstractCreate : null}
-                    show={AbstractShow} />,
+                    name="verifications"
+                    icon={PlaylistAddCheckIcon}
+                    options={{ label: 'Испытания' }}
+                    list={VerificationList}
+                    edit={permissions ? VerificationEdit : null}
+                    create={permissions ? VerificationCreate : null}
+                    show={VerificationShow} />,
                 <Resource
                     name="publication"
                     icon={VisibilityIcon}

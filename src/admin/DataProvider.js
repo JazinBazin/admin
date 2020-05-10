@@ -3,7 +3,9 @@ import simpleRestProvider from 'ra-data-simple-rest';
 const apiUrl = "http://localhost:3000/api";
 const restProvider = simpleRestProvider(apiUrl);
 
-const mainResources = ["abstracts", "articles", "patents", "programms", "rationalization", "research"]
+const mainResources = [
+    "abstracts", "articles", "patents", "programms", "rationalization",
+    "research", "approbations", "verifications", "developments"];
 
 const dataProvider = {
     ...restProvider,

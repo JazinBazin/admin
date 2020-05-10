@@ -14,6 +14,9 @@ require('./routes/AbstractAPI')(app);
 require('./routes/PatentsAPI')(app);
 require('./routes/UserAPI')(app);
 require('./routes/SubdivisionAPI')(app);
+require('./routes/ApprobationAPI')(app);
+require('./routes/VerificationAPI')(app);
+require('./routes/DevelopmentWorkAPI')(app);
 
 app.use(function (req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
