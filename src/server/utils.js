@@ -82,7 +82,7 @@ extractDataFromRequest: -firstCreationDate, -file
 
 function createAPI(app, resource, Model, extractDataToSend, extractDataFromRequest) {
     // create
-    app.post(`/api/${resource}`, cookieParser, auth, jsonParser, (req, res) => {
+    app.post(`/api/${resource}`, upload.array(), cookieParser, auth, jsonParser, (req, res) => {
         if (req.isAdmin) {
             let data = extractDataFromRequest(req);
             data["firstCreationDate"] = new Date();
@@ -95,7 +95,7 @@ function createAPI(app, resource, Model, extractDataToSend, extractDataFromReque
     });
 
     // update
-    app.put(`/api/${resource}/:id`, cookieParser, auth, jsonParser, (req, res) => {
+    app.put(`/api/${resource}/:id`, upload.array(), cookieParser, auth, jsonParser, (req, res) => {
         if (req.isAdmin) {
             Model.findByIdAndUpdate(
                 req.params.id,
