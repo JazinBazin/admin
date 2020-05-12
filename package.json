@@ -30,6 +30,7 @@
     "bcrypt": "^4.0.1",
     "cookie-parser": "^1.4.5",
     "date-fns": "^2.10.0",
+    "docx": "^5.0.2",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
