@@ -23,7 +23,7 @@ export const HeadlineField = ({ source, record = {} }) => {
 
 export const DescriptionField = ({ source, maxchars = 300, record = {} }) => {
     let description = record[source];
-    if (description.length > maxchars)
+    if (description && description.length > maxchars)
         description = description.slice(0, maxchars) + "…";
     return <span>{description}</span>
 }
