@@ -29,6 +29,7 @@
     "app-root-path": "^3.0.0",
     "bcrypt": "^4.0.1",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "date-fns": "^2.10.0",
     "docx": "^5.0.2",
     "express": "^4.17.1",
