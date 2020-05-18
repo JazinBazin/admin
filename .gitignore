@@ -4,3 +4,4 @@ package-lock.json
 .vscode/
 media/
 /public
+src/config.js
