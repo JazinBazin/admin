@@ -9,5 +9,7 @@ module.exports = {
         useUnifiedTopology: true,
         useFindAndModify: false
     },
+    serverPort: 3000,
+    serverIP: "127.0.0.1",
     saltRounds: 10,
 }

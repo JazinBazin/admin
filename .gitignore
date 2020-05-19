@@ -5,3 +5,5 @@ package-lock.json
 media/
 /public
 src/config.js
+webpack.config.js
+src/server/server.js
