@@ -42,7 +42,7 @@ mongoose.connect(
     `mongodb://${config.ip}:${config.port}/${config.databaseName}`,
     config.mongodbConfig)
     .then(() => {
-        app.listen(config.serverIP, config.serverIP, () => {
+        app.listen(config.serverPort, config.serverIP, () => {
             console.log("Server has started.");
         });
     })
