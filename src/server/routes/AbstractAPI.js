@@ -28,7 +28,7 @@ function extractDataFromRequest(req) {
         "description": req.body.description,
         "creationDate": new Date(req.body.creationDate),
         "authors": JSON.parse(req.body.authors),
-        "subdivisions": JSON.parse(req.body.subdivisions),
+        "subdivisions": req.body.subdivisions? JSON.parse(req.body.subdivisions) : undefined,
     }
 }
 
